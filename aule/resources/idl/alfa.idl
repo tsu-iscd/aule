@@ -1,0 +1,137 @@
+interface Node {
+}
+
+interface Statement <: Node { 
+}
+
+interface Expression <: Node { 
+}
+
+interface Script <: Statement {
+    body: [Statement];
+}
+
+interface NameSpaceDeclaration <: Statement {
+    name: str;
+    body: [Statement];
+}
+
+interface PolicySetDeclaration <: Statement {
+    name: str;
+    algorithm: ApplyStatement;
+    targetStatement: TargetStatement;
+    conditionStatement: ConditionStatement;
+    references: [Identifier];
+    policies: [PolicyDeclaration];
+    policysets: [PolicySetDeclaration];
+    events: [EventDeclaration];
+    modifiers: [Keywords];
+}
+
+interface PolicyDeclaration <: Statement {
+    name: str;
+    algorithm: ApplyStatement;
+    targetStatement: TargetStatement;
+    conditionStatement: ConditionStatement;
+    rules: [RuleDeclaration];
+    events: [EventDeclaration];
+    modifiers: [Keywords];
+}
+
+interface RuleDeclaration <: Statement {
+    name: str;
+    effect: EffectStatement;
+    targetStatement: TargetStatement;
+    conditionStatement: ConditionStatement;
+    events: [Event];
+}
+
+interface Event <: Statement {
+    eventType: str;
+    body: [Statement];
+}
+
+interface Obligation <: Statement {
+    name: str;
+}
+
+interface Advice <: Statement {
+    name: str;
+}
+
+interface ApplyStatement <: Statement {
+    value: str;
+}
+
+interface EffectStatement <: Statement {
+    value: str;
+}
+
+interface TargetStatement <: Statement {
+    clauses: [TargetClause];
+}
+
+interface ConditionStatement <: Statement {
+    statement: Statement;
+}
+
+interface TargetClause <: Statement {
+    statement: Statement;
+}
+
+interface AttributeAccessExpression <: Expression {
+    expression: Expression;
+    name: str;
+}
+
+interface CallExpression <: Expression {
+    callee: Identifier;
+    arguments: [Identifier];
+}
+
+interface AnyExpression <: Expression {
+    left: ArrayExpression | AttributeAccessExpression;
+    right: ArrayExpression | AttributeAccessExpression;
+}
+
+interface ArrayExpression <: Expression {
+    elements: [Expression];
+}
+
+interface Identifier <: Expression {
+    name: str;
+}
+
+interface LiteralString <: Expression {
+    value: str;
+}
+
+interface LiteralNumeric <: Expression {
+    value: str;
+}
+
+interface LiteralBoolean <: Expression {
+    value: str;
+}
+
+interface BinaryExpression <: Expression {
+    operator: str;
+    left: Expression;
+    right: Expression;
+}
+
+interface LogicalExpression <: Expression {
+    operator: str;
+    left: Expression;
+    right: Expression;
+}
+
+interface BooleanExpression <: Expression {
+    operator: str;
+    left: Expression;
+    right: Expression;
+}
+
+interface ExportKeyword <: Node {
+    text: str;
+}

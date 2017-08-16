@@ -1,0 +1,10 @@
+from .cpp import Generator as CPPGenerator
+from .cpp_idl import Generator as CPPIDLGenerator
+from .python_idl import Generator as PythonIDLGenerator
+from .golang import Generator as GoGenerator
+from .jsonscheme import Generator as SchemeGenerator
+from .python import Generator as PythonGenerator
+from .lua import Generator as LuaGenerator
+from .ecmascript import Generator as ECMAScriptGenerator
+from .kotlin import Generator as KotlinGenerator
+from .kotlin_idl import Generator as KotlinIDLGenerator

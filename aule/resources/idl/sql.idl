@@ -1,0 +1,2690 @@
+// Enums
+enum ActionOnObject {
+    ADD = "ADD";
+    DROP = "DROP";
+}
+
+enum DataType {
+    CHAR = "CHAR";
+    VARCHAR = "VARCHAR";
+    TINYTEXT = "TINYTEXT";
+    TEXT = "TEXT";
+    MEDIUMTEXT = "MEDIUMTEXT";
+    LONGTEXT = "LONGTEXT";
+    TINYINT = "TINYINT";
+    SMALLINT = "SMALLINT";
+    MEDIUMINT = "MEDIUMINT";
+    INT = "INT";
+    INTEGER = "INTEGER";
+    BIGINT = "BIGINT";
+    REAL = "REAL";
+    DOUBLE = "DOUBLE";
+    FLOAT = "FLOAT";
+    DECIMAL = "DECIMAL";
+    NUMERIC = "NUMERIC";
+    DATE = "DATE";
+    YEAR = "YEAR";
+    TINYBLOB = "TINYBLOB";
+    BLOB = "BLOB";
+    MEDIUMBLOB = "MEDIUMBLOB";
+    LONGBLOB = "LONGBLOB";
+    BIT = "BIT";
+    TIME = "TIME";
+    TIMESTAMP = "TIMESTAMP";
+    DATETIME = "DATETIME";
+    BINARY = "BINARY";
+    VARBINARY = "VARBINARY";
+    ENUM = "ENUM";
+    SET = "SET";
+}
+
+enum SpatialDataType {
+    GEOMETRY = "GEOMETRY";
+    POINT = "POINT";
+    LINESTRING = "LINESTRING";
+    POLYGON = "POLYGON";
+    MULTIPOINT = "MULTIPOINT";
+    MULTILINESTRING = "MULTILINESTRING";
+    MULTIPOLYGON = "MULTIPOLYGON";
+    GEOMETRYCOLLECTION = "GEOMETRYCOLLECTION";
+}
+
+enum ConvertedDataTypeValue {
+    BINARY = "BINARY";
+    NCHAR = "NCHAR";
+    CHAR = "CHAR";
+    DATE = "DATE";
+    DATETIME = "DATETIME";
+    TIME = "TIME";
+    DECIMAL = "DECIMAL";
+    SIGNED = "SIGNED";
+    UNSIGNED = "UNSIGNED";
+}
+
+enum IntervalType {
+    YEAR = "YEAR";
+    YEAR_MONTH = "YEAR_MONTH";
+    DAY_HOUR = "DAY_HOUR";
+    DAY_MINUTE = "DAY_MINUTE";
+    DAY_SECOND = "DAY_SECOND";
+    HOUR_MINUTE = "HOUR_MINUTE";
+    HOUR_SECOND = "HOUR_SECOND";
+    MINUTE_SECOND = "MINUTE_SECOND";
+    SECOND_MICROSECOND = "SECOND_MICROSECOND";
+    MINUTE_MICROSECOND = "MINUTE_MICROSECOND";
+    HOUR_MICROSECOND = "HOUR_MICROSECOND";
+    DAY_MICROSECOND = "DAY_MICROSECOND";
+    QUARTER = "QUARTER";
+    MONTH = "MONTH";
+    DAY = "DAY";
+    HOUR = "HOUR";
+    MINUTE = "MINUTE";
+    WEEK = "WEEK";
+    SECOND = "SECOND";
+    MICROSECOND = "MICROSECOND";
+}
+
+enum LogicalOperator {
+    OR = "OR";
+    OR_SIGN = "||";
+    XOR = "XOR";
+    AND = "AND";
+    AND_SIGN = "&&";
+    NOT_SIGN = "!";
+    NOT = "NOT";
+}
+
+enum ComparisonOperator {
+    EQ = "=";
+    GE = ">=";
+    GT = ">";
+    LE = "<=";
+    LT = "<";
+    NE = "<>";
+    EMNE = "!=";
+    NSNE = "<=>";
+}
+
+enum UnaryOperator {
+    BANG = "!";
+    TILDE = "~";
+    PLUS = "+";
+    MINUS = "-";
+}
+
+enum BinaryOperator {
+    OR = "|";
+    AND = "&";
+    LSHIFT = "<<";
+    RSHIFT = ">>";
+    PLUS = "+";
+    MINUS = "-";
+    MULTIPLY = "*";
+    DIVIDE = "/";
+    MODULE = "%";
+    DIV = "DIV";
+    MOD = "MOD";
+    XOR = "^";
+}
+
+enum KeywordLiteral {
+    DEFAULT = "DEFAULT";
+    CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP";
+    MAXVALUE = "MAXVALUE";
+}
+
+enum RowAggregator {
+    ALL = "ALL";
+    DISTINCT = "DISTINCT";
+    DISTINCTROW = "DISTINCTROW";
+}
+
+enum KeywordPosition {
+    BEFORE = "BEFORE";
+    AFTER = "AFTER";
+}
+
+enum LogicalMatch {
+    TRUE = "TRUE";
+    FALSE = "FALSE";
+    UNKNOWN = "UNKNOWN";
+}
+
+enum QuantifierType {
+    ALL = "ALL";
+    ANY = "ANY";
+    SOME = "SOME";
+}
+
+enum TypeLike {
+    SOUNDS = "SOUNDS";
+    LIKE = "LIKE";
+    RLIKE = "RLIKE";
+    REGEXP = "REGEXP";
+}
+
+enum StringTransformType {
+    COLLATE = "COLLATE";
+    BINARY = "BINARY";
+}
+
+enum HandlerAction {
+    CONTINUE = "CONTINUE";
+    EXIT = "EXIT";
+    UNDO = "UNDO";
+}
+
+enum CursorAction {
+    OPEN = "Open";
+    CLOSE = "Close";
+}
+
+enum UnionType {
+    ALL = "ALL";
+    DISTINCT = "DISTINCT";
+}
+
+enum SortType {
+    ASC = "ASC";
+    DESC = "DESC";
+}
+
+enum JoinType {
+    INNERJOIN = "INNERJOIN";
+    CROSSJOIN = "CROSSJOIN";
+    STRAIGHTJOIN = "STRAIGHTJOIN";
+    LEFTJOIN = "LEFTJOIN";
+    LEFTOUTERJOIN = "LEFTOUTERJOIN";
+    RIGHTJOIN = "RIGHTJOIN";
+    RIGHTOUTERJOIN = "RIGHTOUTERJOIN";
+    FULLJOIN = "FULLJOIN";
+    FULLOUTERJOIN = "FULLOUTERJOIN";
+    NATURALJOIN = "NATURALJOIN";
+    NATURALLEFTJOIN = "NATURALLEFTJOIN";
+    NATURALLEFTOUTERJOIN = "NATURALLEFTOUTERJOIN";
+    NATURALRIGHTJOIN = "NATURALRIGHTJOIN";
+    NATURALRIGHTOUTERJOIN = "NATURALRIGHTOUTERJOIN";
+}
+
+enum IndexHintAction {
+    USE = "USE";
+    IGNORE = "IGNORE";
+    FORCE = "FORCE";
+}
+
+enum IndexType {
+    BTREE = "BTREE";
+    HASH = "HASH";
+}
+
+enum IndexHintType {
+    JOIN = "JOIN";
+    ORDERBY = "ORDERBY";
+    GROUPBY = "GROUPBY";
+}
+
+enum SimpleGroupByOperatorType {
+    ROLLUP = "ROLLUP";
+    CUBE = "CUBE";
+}
+
+enum Priority {
+    LOWPRIORITY = "LOWPRIORITY";
+    DELAYED = "DELAYED";
+    HIGHPRIORITY = "HIGHPRIORITY";
+}
+
+enum ColumnFormat {
+    FIXED = "FIXED";
+    DYNAMIC = "DYNAMIC";
+    DEFAULT = "DEFAULT";
+}
+
+enum ColumnStorage {
+    DISK = "DISK";
+    MEMORY = "MEMORY";
+    DEFAULT = "DEFAULT";
+}
+
+enum ForeignKeyMatchType {
+    FULL = "FULL";
+    PARTIAL = "PARTIAL";
+    SIMPLE = "SIMPLE";
+}
+
+enum ReferenceConstraintType {
+    RESTRICT = "RESTRICT";
+    CASCADE = "CASCADE";
+    SETNULL = "SETNULL";
+    NOACTION = "NOACTION";
+    SETDEFAULT = "SETDEFAULT";
+}
+
+enum KeyType {
+    PRIMARY = "PRIMARY";
+    UNIQUE = "UNIQUE";
+    FOREIGN = "FOREIGN";
+    INDEX = "INDEX";
+    KEY = "KEY";
+    FULLTEXT = "FULLTEXT";
+    SPATIAL = "SPATIAL";
+}
+
+enum CompressionTableType {
+    ZLIB = "ZLIB";
+    LZ4 = "LZ4";
+    NONE = "NONE";
+}
+
+enum SelectSpecificators {
+    ALL = "ALL";
+    DISTINCT = "DISTINCT";
+    DISTINCTROW = "DISTINCTROW";
+    HIGHPRIORITY = "HIGHPRIORITY";
+    STRAIGHTJOIN = "STRAIGHTJOIN";
+    SQLSMALLRESULT = "SQLSMALLRESULT";
+    SQLBIGRESULT = "SQLBIGRESULT";
+    SQLBUFFERRESULT = "SQLBUFFERRESULT";
+    SQLCACHE = "SQLCACHE";
+    SQLNOCACHE = "SQLNOCACHE";
+    SQLCALCFOUNDROWS = "SQLCALCFOUNDROWS";
+}
+
+enum InsertViolateBehaviour {
+    IGNORE = "IGNORE";
+    REPLACE = "REPLACE";
+}
+
+enum InsertTableMethod {
+    NO = "NO";
+    FIRST = "FIRST";
+    LAST = "LAST";
+}
+
+enum TableKeyPacking {
+    YES = "YES";
+    NO = "NO";
+    DEFAULT = "DEFAULT";
+}
+
+enum FormatTableRow {
+    DEFAULT = "DEFAULT";
+    DYNAMIC = "DYNAMIC";
+    FIXED = "FIXED";
+    COMPRESSED = "COMPRESSED";
+    REDUNDANT = "REDUNDANT";
+    COMPACT = "COMPACT";
+}
+
+enum StatisticsTableType {
+    YES = "YES";
+    NO = "NO";
+    DEFAULT = "DEFAULT";
+}
+
+enum TablespaceStorage {
+    DISK = "DISK";
+    MEMORY = "MEMORY";
+    DEFAULT = "DEFAULT";
+}
+
+enum DeletionFormat {
+    USING = "USING";
+    FROM = "FROM";
+}
+
+enum IndexCategory {
+    UNIQUE = "UNIQUE";
+    FULLTEXT = "FULLTEXT";
+    SPATIAL = "SPATIAL";
+}
+
+enum IndexAlgorithmOption {
+    DEFAULT = "DEFAULT";
+    INPLACE = "INPLACE";
+    COPY = "COPY";
+}
+
+enum LockOption {
+    DEFAULT = "DEFAULT";
+    NONE = "NONE";
+    SHARED = "SHARED";
+    EXCLUSIVE = "EXCLUSIVE";
+}
+
+enum RoutineOperator {
+    CONTAINSSQL = "CONTAINSSQL";
+    NOSQL = "NOSQL";
+    READSSQLDATA = "READSSQLDATA";
+    MODIFIESSQLDATA = "MODIFIESSQLDATA";
+}
+
+enum SecurityOwnerContext {
+    DEFINER = "DEFINER";
+    INVOKER = "INVOKER";
+}
+
+enum LiteralUserName {
+    CURRENTUSER = "CURRENTUSER";
+}
+
+enum ParameterDirection {
+    IN = "IN";
+    OUT = "OUT";
+    INOUT = "INOUT";
+}
+
+enum AlgorithmView {
+    UNDEFINED = "UNDEFINED";
+    MERGE = "MERGE";
+    TEMPTABLE = "TEMPTABLE";
+}
+
+enum CheckOptionView {
+    CASCADED = "CASCADED";
+    LOCAL = "LOCAL";
+    EMPTY = "";
+}
+
+enum TimeTrigger {
+    BEFORE = "BEFORE";
+    AFTER = "AFTER";
+}
+
+enum EventTrigger {
+    INSERT = "INSERT";
+    UPDATE = "UPDATE";
+    DELETE = "DELETE";
+}
+
+enum OrderTriggerType {
+    FOLLOWS = "FOLLOWS";
+    PRECEDES = "PRECEDES";
+}
+
+enum EnableEventType {
+    ENABLE = "ENABLE";
+    DISABLE = "DISABLE";
+    DISABLEONSLAVE = "DISABLEONSLAVE";
+}
+
+enum IntimeActionType {
+    ONLINE = "ONLINE";
+    OFFLINE = "OFFLINE";
+}
+
+enum PartitionAction {
+    ADD = "ADD";
+    DROP = "DROP";
+    DISCARD = "DISCARD";
+    IMPORT = "IMPORT";
+    TRUNCATE = "TRUNCATE";
+    COALESCE = "COALESCE";
+    REORGANIZE = "REORGANIZE";
+    EXCHANGE = "EXCHANGE";
+    ANALYZE = "ANALYZE";
+    CHECK = "CHECK";
+    OPTIMIZE = "OPTIMIZE";
+    REBUILD = "REBUILD";
+    REPAIR = "REPAIR";
+}
+
+enum AlterAction {
+    ALGORITHM = "ALGORITHM";
+    LOCK = "LOCK";
+    DISABLEKEYS = "DISABLEKEYS";
+    ENABLEKEYS = "ENABLEKEYS";
+    RENAME = "RENAME";
+    ORDERBY = "ORDERBY";
+    CONVERTCHARSET = "CONVERTCHARSET";
+    DEFAULTCHARSET = "DEFAULTCHARSET";
+    DISCARDTABLESPACE = "DISCARDTABLESPACE";
+    IMPORTTABLESPACE = "IMPORTTABLESPACE";
+    FORCE = "FORCE";
+    VALIDATION = "VALIDATION";
+    REMOVEPARTITIONING = "REMOVEPARTITIONING";
+    UPGRADEPARTITIONING = "UPGRADEPARTITIONING";
+}
+
+enum ConstraintDropType {
+    RESTRICT = "RESTRICT";
+    CASCADE = "CASCADE";
+}
+
+enum IndexOrder {
+    FIRST = "FIRST";
+    NEXT = "NEXT";
+    PREV = "PREV";
+    LAST = "LAST";
+    
+}
+
+enum TransactionOption {
+    WITHCONSISTENTSNAPSHOT = "WITHCONSISTENTSNAPSHOT";
+    READWRITE = "READWRITE";
+    READONLY = "READONLY";
+}
+
+enum TransactionContext {
+    GLOBAL = "GLOBAL";
+    SESSION = "SESSION";
+}
+
+enum TransactionLevel {
+    REPEATABLEREAD = "REPEATABLEREAD";
+    READCOMMITTED = "READCOMMITTED";
+    READUNCOMMITTED = "READUNCOMMITTED";
+    SERIALIZABLE = "SERIALIZABLE";
+}
+
+enum ThreadType {
+    IOTHREAD = "IOTHREAD";
+    SQLTHREAD = "SQLTHREAD";
+}
+
+enum TLSOptionName {
+    SSL = "SSL";
+    X509 = "X509";
+    CIPHER = "CIPHER";
+    ISSUER = "ISSUER";
+    SUBJECT = "SUBJECT";
+}
+
+enum UserResourceType {
+    QUERIESPERHOUR = "QUERIESPERHOUR";
+    UPDATEPERHOUR = "UPDATEPERHOUR";
+    CONNECTIONSPERHOUR = "CONNECTIONSPERHOUR";
+    USERCONNECTIONS = "USERCONNECTIONS";
+}
+
+enum PasswordExpirationType {
+    DEFAULT = "DEFAULT";
+    NEVER = "NEVER";
+    INTERVAL = "INTERVAL";
+}
+
+enum PrivilegeName {
+    ALL = "ALL";
+    ALLPRIVILEGES = "ALLPRIVILEGES";
+    ALTER = "ALTER";
+    ALTERROUTINE = "ALTERROUTINE";
+    CREATE = "CREATE";
+    CREATETEMPORARYTABLES = "CREATETEMPORARYTABLES";
+    CREATEROUTINE = "CREATEROUTINE";
+    CREATEVIEW = "CREATEVIEW";
+    CREATEUSER = "CREATEUSER";
+    CREATETABLESPACE = "CREATETABLESPACE";
+    DELETE = "DELETE";
+    DROP = "DROP";
+    EVENT = "EVENT";
+    EXECUTE = "EXECUTE";
+    FILE = "FILE";
+    GRANTOPTION = "GRANTOPTION";
+    INDEX = "INDEX";
+    INSERT = "INSERT";
+    LOCKTABLES = "LOCKTABLES";
+    PROCESS = "PROCESS";
+    PROXY = "PROXY";
+    REFERENCES = "REFERENCES";
+    RELOAD = "RELOAD";
+    REPLICATIONCLIENT = "REPLICATIONCLIENT";
+    REPLICATIONSLAVE = "REPLICATIONSLAVE";
+    SELECT = "SELECT";
+    SHOWVIEW = "SHOWVIEW";
+    SHOWDATABASES = "SHOWDATABASES";
+    SHUTDOWN = "SHUTDOWN";
+    SUPER = "SUPER";
+    TRIGGER = "TRIGGER";
+    UPDATE = "UPDATE";
+    USAGE = "USAGE";
+}
+
+enum PrivilegeLevel {
+    GLOBAL = "GLOBAL";
+    SCHEMA = "SCHEMA";
+    TABLE = "TABLE";
+    ROUTINE = "ROUTINE";
+}
+
+enum PrivilegeObjectType {
+    TABLE = "TABLE";
+    FUNCTION = "FUNCTION";
+    PROCEDURE = "PROCEDURE";
+}
+
+enum LockTableAction {
+    READ = "READ";
+    READLOCAL = "READLOCAL";
+    WRITE = "WRITE";
+    LOWPRIORITYWRITE = "LOWPRIORITYWRITE";
+}
+
+enum CheckTableOption {
+    FORUPGRADE = "FORUPGRADE";
+    QUICK = "QUICK";
+    FAST = "FAST";
+    MEDIUM = "MEDIUM";
+    EXTENDED = "EXTENDED";
+    CHANGED = "CHANGED";
+}
+
+enum ReturnDataType {
+    STRING = "STRING";
+    INTEGER = "INTEGER";
+    REAL = "REAL";
+    DECIMAL = "DECIMAL";
+}
+
+enum ProfileType {
+    ALL = "ALL";
+    BLOCKIO = "BLOCKIO";
+    CONTEXTSWITCHES = "CONTEXTSWITCHES";
+    CPU = "CPU";
+    IPC = "IPC";
+    MEMORY = "MEMORY";
+    PAGEFAULTS = "PAGEFAULTS";
+    SOURCE = "SOURCE";
+    SWAPS = "SWAPS";
+}
+
+enum FlushOption {
+    DESKEYFILE = "DESKEYFILE";
+    HOSTS = "HOSTS";
+    BINARYLOGS = "BINARYLOGS";
+    ENGINELOGS = "ENGINELOGS";
+    ERRORLOGS = "ERRORLOGS";
+    CENERALLOGS = "CENERALLOGS";
+    RELAYLOGS = "RELAYLOGS";
+    SLOWLOGS = "SLOWLOGS";
+    LOGS = "LOGS";
+    OPTIMIZERCOSTS = "OPTIMIZERCOSTS";
+    PRIVILEGES = "PRIVILEGES";
+    QUERYCACHE = "QUERYCACHE";
+    STATUS = "STATUS";
+    USERRESOURCES = "USERRESOURCES";
+    TABLES = "TABLES";
+    TABLESWITHREADLOCK = "TABLESWITHREADLOCK";
+}
+
+enum DescriptionStatementType {
+    DESC = "DESC";
+    DESCRIBE = "DESCRIBE";
+    EXPLAIN = "EXPLAIN";
+}
+
+enum FormatDescriptionObject {
+    EXTENDED = "EXTENDED";
+    PARTITIONS = "PARTITIONS";
+    FORMAT = "FORMAT";
+}
+
+enum DescribeFormatValue {
+    TRADITIONAL = "TRADITIONAL";
+    JSON = "JSON";
+}
+
+enum SyntaxFormat {
+    COLUMNS = "COLUMNS";
+    FIELDS = "FIELDS";
+    FROM = "FROM";
+    IN = "IN";
+    GLOBAL ="GLOBAL";
+    SESSION = "SESSION";
+    DATABASE = "DATABASE";
+    SCHEMA = "SCHEMA";
+    AS = "AS";
+    INDEX = "INDEX";
+    KEY = "KEY";
+    CHARACTERSET = "CHARACTERSET";
+    CHARSET = "CHARSET";
+    WITH = "WITH";
+    WITHOUT = "WITHOUT";
+    TO = "TO";
+    LINES = "LINES";
+    ROWS = "ROWS";
+    FORUPDATE = "FORUPDATE";
+    LOCKINSHAREMODE = "LOCKINSHAREMODE";
+    BINARY = "BINARY";
+    MASTER = "MASTER";
+    START = "START";
+    BEGIN = "BEGIN";
+    JOIN = "JOIN";
+    RESUME = "RESUME";
+    SUSPEND = "SUSPEND";
+    SUSPENDFORMIGRATE = "SUSPENDFORMIGRATE";
+    ONEPHASE = "ONEPHASE";
+    DROP = "DROP";
+    DEALLOCATE = "DEALLOCATE";
+    BY = "BY";
+    BYPASSWORD = "BYPASSWORD";
+    RELAYLOG = "RELAYLOG";
+    STATUS = "STATUS";
+    MUTEX = "MUTEX";
+    CONNECTION = "CONNECTION";
+    QUERY = "QUERY";   
+    PASSWORD = "PASSWORD";
+    OLDPASSWORD = "OLDPASSWORD";
+}
+
+enum NamedEntity {
+    PROCEDURE = "PROCEDURE";
+    EVENT = "EVENT";
+    FUNCTION = "FUNCTION";
+    TABLE = "TABLE";
+    TRIGGER = "TRIGGER";
+    VIEW = "VIEW";
+}
+
+enum CommonEntity {
+    CHARACTERSET = "CHARACTERSET";
+    COLLATION = "COLLATION";
+    DATABASES = "DATABASES";
+    SCHEMAS = "SCHEMAS";
+    FUNCTIONSTATUS = "FUNCTIONSTATUS";
+    PROCEDURESTATUS = "PROCEDURESTATUS";
+    STATUS = "STATUS";
+    VARIABLES = "VARIABLES";
+    GLOBALSTATUS = "GLOBALSTATUS";
+    GLOBALVARIABLES = "GLOBALVARIABLES";
+    SESSIONSTATUS = "SESSIONSTATUS";
+    SESSIONVARIABLES = "SESSIONVARIABLES";
+    STORAGEENGINES = "STORAGEENGINES";
+    ENGINES = "ENGINES";
+    MASTERSTATUS = "MASTERSTATUS";
+    PLUGINS = "PLUGINS";
+    PRIVILEGES = "PRIVILEGES";
+    FULLPROCESSLIST = "FULLPROCESSLIST";
+    PROCESSLIST = "PROCESSLIST";
+    PROFILES = "PROFILES";
+    SLAVEHOSTS = "SLAVEHOSTS";
+    AUTHORS = "AUTHORS";
+    CONTRIBUTORS = "CONTRIBUTORS";
+    ERRORS = "ERRORS";
+    WARNINGS = "WARNINGS";
+    EVENTS = "EVENTS";
+    TABLESTATUS = "TABLESTATUS";
+    FULLTABLES = "FULLTABLES";
+    TABLES = "TABLES";
+    TRIGGERS = "TRIGGERS";
+    KEYS = "KEYS";
+    INDEX = "INDEX";
+    INDEXES = "INDEXES";
+}
+
+// SQL. Root
+interface Node {
+}
+
+interface Script <: Node {
+    body: [Statement];
+    isCommented: bool;
+}
+
+interface CommonStatement <: Node { 
+}
+
+interface Statement <: CommonStatement { 
+}
+
+interface SingleQueryStatement <: Statement {
+}
+
+interface EmptyStatement <: Statement {
+}
+
+interface WithStatement <: Statement {
+    body: Statement;
+}
+
+// DDL. Create
+interface CreateDatabaseStatement <: SingleQueryStatement {
+    dbFormat: SyntaxFormat;
+    ifNotExist: bool;
+    dbName: SchemaName;
+    options: [CommonSimpleOption];
+}
+
+interface CreateEventStatement <: SingleQueryStatement {
+    name: EventName;
+    eventSchedule: EventScheduleClause;
+    body: Statement;
+    definer: FixedUserName | UserName | null;
+    ifNotExist: bool | null;
+    isPreserve: bool | null;
+    enableType: EnableEventType | null;
+    comment: str | null;
+}
+
+interface CreateIndexStatement <: SingleQueryStatement {
+    category: IndexCategory | null;
+    name: IndexName;
+    indexType: IndexType | null;
+    table: TableName;
+    indexColumns: [IndexColumnNameClause];
+    options: [CommonSimpleOption];
+    algorithm: IndexAlgorithmOption | null;
+    lockOption: LockOption | null;
+    creationPlace: IntimeActionType | null;
+}
+
+interface CreateLogFileGroupStatement <: SingleQueryStatement {
+    name: LogFileGroupName;
+    undoFile: str;
+    initialSize: str | null;
+    undoBufferSize: str | null;
+    redoBufferSize: str | null;
+    nodeGroup: Identifier | null;
+    isWait: bool | null;
+    comment: str | null;
+    engine: str;
+}
+
+interface CreateProcedureStatement <: SingleQueryStatement {
+    definer: FixedUserName | UserName | null;
+    procedure: ProcedureName;
+    params: [RoutineParameter];
+    body: Statement;
+    options: [CommonSimpleOption];
+}
+
+interface CreateFunctionStatement <: SingleQueryStatement {
+    definer: FixedUserName | UserName | null;
+    function: UDFunctionName;
+    params: [RoutineParameter];
+    body: Statement;
+    returnType: DataTypeClause;
+    options: [CommonSimpleOption];
+}
+
+interface CreateServerStatement <: SingleQueryStatement {
+    name: ServerName;
+    ifExists: bool | null;
+    wrapper: Identifier | null;
+    options: [CommonSimpleOption];
+}
+
+interface CreateTableStatement <: SingleQueryStatement {
+}
+
+interface CopyCreateTableStatement <: CreateTableStatement {
+    isTemporary: bool;
+    ifNotExist: bool;
+    table: TableName;
+    tableCopy: TableName;
+    isParenthesisCopyTable: bool;
+}
+
+interface QueryCreateTableStatement <: CreateTableStatement {
+    isTemporary: bool;
+    ifNotExist: bool;
+    keyViolation: InsertViolateBehaviour | null;
+    table: TableName;
+    queryAs: bool;
+    query: CommonSelectStatement;
+    columns: [ColumnDeclaration];
+    constraints: [ConstraintDeclaration];
+    options: [CommonSimpleOption];
+    partitions: PartitionClause | null;
+}
+
+interface ColumnCreateTableStatement <: CreateTableStatement {
+    isTemporary: bool;
+    ifNotExist: bool;
+    table: TableName;
+    columns: [ColumnDeclaration];
+    constraints: [ConstraintDeclaration];
+    options: [CommonSimpleOption];
+    partitions: PartitionClause | null;
+}
+
+interface CreateTableSpaceStatement <: SingleQueryStatement {
+    name: TablespaceName;
+    dataFileName: str;
+    fileBlockSize: str | null;
+    fileGroup: LogFileGroupName | null;
+    extentSize: str | null;
+    initialSize: str | null;
+    autoExtendSize: str | null;
+    maxSize: str | null;
+    nodeGroup: Identifier | null;
+    isWait: bool | null;
+    comment: str | null;
+    engine: str | null;
+}
+
+interface CreateTriggerStatement <: SingleQueryStatement {
+    name: TriggerName;
+    table: TableName;
+    time: TimeTrigger;
+    event: EventTrigger;
+    body: Statement;
+    definer: FixedUserName | UserName | null;
+    triggerOrder: TriggerOrderClause | null;
+}
+
+interface TriggerOrderClause <: Node {
+    orderType: OrderTriggerType;
+    trigger: TriggerName;
+}
+
+interface CreateViewStatement <: SingleQueryStatement {
+    isReplace: bool | null;
+    algorithm: AlgorithmView | null;
+    definer: FixedUserName | UserName | null;
+    sqlSecurity: SecurityOwnerContext | null;
+    name: ViewName;
+    columns: [Identifier];
+    select: CommonSelectStatement | null;
+    checkOption: CheckOptionView | null;
+}
+
+interface EventScheduleClause <: Node {
+}
+
+interface EventSchedulePresicion <: EventScheduleClause {
+    timestamp: Expression;
+    intervals: [IntervalExpression];
+}
+
+interface EventScheduleInterval <: EventScheduleClause {
+    repeatInterval: IntervalExpression;
+    start: Expression | null;
+    startIntervals: [IntervalExpression];
+    stop: Expression | null;
+    stopIntervals: [IntervalExpression];
+}
+
+interface RoutineParameter <: Node {
+    direction: ParameterDirection | null;
+    name: Identifier;
+    dataType: DataTypeClause;
+}
+
+interface ColumnDeclaration <: Node {
+    name: Identifier;
+    dataType: DataTypeClause;
+    defaultValue: Literal | null;
+    isNotNull: bool;
+    isAutoIncrement: bool | null;
+    isUnique: bool;
+    isPrimary: bool;
+    comment: str | null;
+    columnFormat: ColumnFormat | null;
+    storage: ColumnStorage | null;
+    reference: ReferenceDeclarationClause | null;
+}
+
+interface ConstraintDeclaration <: Node {
+}
+
+interface ConstraintKeyClause <: ConstraintDeclaration {
+    name: Identifier | null;
+    keyType: KeyType;
+    indexColumns: [IndexColumnNameClause];
+    indexNameFormat: SyntaxFormat | null;
+    indexName: Identifier | null;
+    indexType: IndexType | null;
+    indexOptionSet: [CommonSimpleOption];
+    reference: ReferenceDeclarationClause | null;
+}
+
+interface ConstraintCheckClause <: ConstraintDeclaration {
+    expression: Expression;
+}
+
+interface ReferenceDeclarationClause <: Node {
+    table: TableName;
+    indexColumns: [IndexColumnNameClause];
+    matchType: ForeignKeyMatchType | null;
+    onDelete: ReferenceConstraintType | null;
+    onUpdate: ReferenceConstraintType | null;
+}
+
+interface PartitionClause <: Node {
+    count: int | null;
+    function: PartitionFunction;
+    partitions: [PartitionDefinition];
+    subFunction: SubPartitionFunction | null;
+    subCount: int | null;
+}
+
+interface PartitionFunction <: Node {
+}
+
+interface PartitionHash <: PartitionFunction {
+    isLinear: bool;
+    value: Expression;
+}
+
+interface PartitionKey <: PartitionFunction {
+    isLinear: bool;
+    columns: [ColumnName];
+    algorithmType: str | null;
+}
+
+interface PartitionRange <: PartitionFunction {
+    value: Expression | null;
+    columns: [ColumnName];
+}
+
+interface PartitionList <: PartitionFunction {
+    value: Expression | null;
+    columns: [ColumnName];
+}
+
+interface SubPartitionFunction <: Node {
+}
+
+interface SubPartitionHash <: SubPartitionFunction {
+    isLinear: bool;
+    value: Expression;
+}
+
+interface SubPartitionKey <: SubPartitionFunction {
+    isLinear: bool;
+    columns: [ColumnName];
+    algorithmType: str | null;
+}
+
+interface PartitionDefinition <: Node {
+}
+
+interface ComparasionPartitionDefinition <: PartitionDefinition {
+    partition: Identifier;
+    options: [CommonSimpleOption];
+    subPartitions: [SubPartitionDefinition];
+    value: Expression | null;
+    values: [Literal];
+}
+
+interface ListPartitionDefinition <: PartitionDefinition {
+    partition: Identifier;
+    options: [CommonSimpleOption];
+    subPartitions: [SubPartitionDefinition];
+    values: [Literal];
+}
+
+interface SimplePartitionDefinition <: PartitionDefinition {
+    partition: Identifier;
+    options: [CommonSimpleOption];
+    subPartitions: [SubPartitionDefinition];
+}
+
+interface SubPartitionDefinition <: Node {
+    subPartition: Identifier;
+    options: [CommonSimpleOption];
+}
+
+// DDL. Alter
+interface AlterDatabaseStatement <: SingleQueryStatement {
+    dbFormat: SyntaxFormat;
+    dbName: SchemaName | null;
+    options: [CommonSimpleOption];
+    isUpgradeDataDirectory: bool;
+}
+
+interface AlterEventStatement <: SingleQueryStatement {
+    name: EventName;
+    newName: EventName | null;
+    eventSchedule: EventScheduleClause | null;
+    body: Statement | null;
+    definer: FixedUserName | UserName | null;
+    ifNotExist: bool | null;
+    isPreserve: bool | null;
+    enableType: EnableEventType | null;
+    comment: str | null;
+}
+
+interface AlterFunctionStatement <: SingleQueryStatement {
+    function: UDFunctionName;
+    options: [CommonSimpleOption];
+}
+
+interface AlterInstanceStatement <: SingleQueryStatement {
+}
+
+interface AlterLogFileGroupStatement <: SingleQueryStatement {
+    name: LogFileGroupName;
+    undoFile: str;
+    initialSize: str | null;
+    isWait: bool | null;
+    engine: str;
+}
+
+interface AlterProcedureStatement <: SingleQueryStatement {
+    procedure: ProcedureName;
+    options: [CommonSimpleOption];
+}
+
+interface AlterServerStatement <: SingleQueryStatement {
+    name: Identifier;
+    options: [CommonSimpleOption];
+}
+
+interface AlterTableStatement <: SingleQueryStatement {
+    table: TableName;
+    isIgnore: bool;
+    creationPlace: IntimeActionType | null;
+    alterSpecificationClauses: [AlterSpecification];
+    partitions: PartitionClause | null;
+}
+
+interface AlterTableSpaceStatement <: SingleQueryStatement {
+    name: TablespaceName;
+    dataFileName: str;
+    dataFileAction: ActionOnObject;
+    initialSize: str | null;
+    isWait: bool;
+    engine: str;
+}
+
+interface AlterViewStatement <: SingleQueryStatement {
+    algorithm: AlgorithmView | null;
+    name: ViewName;
+    columns: [Identifier];
+    select: CommonSelectStatement | null;
+    options: [CommonSimpleOption];
+    checkOption: CheckOptionView | null;
+}
+
+interface AlterSpecification <: Node {
+}
+
+interface AlterTableOption <: AlterSpecification {
+    option: CommonSimpleOption;
+}
+
+interface AlterAddColumn <: AlterSpecification {
+    column: ColumnDeclaration;
+    isFirst: bool | null;
+    afterColumn: ColumnName | null;
+    isColumn: bool;
+}
+
+interface AlterAddColumns <: AlterSpecification {
+    columns: [ColumnDeclaration];
+    isColumn: bool;
+}
+
+interface AlterSetDefaultColumn <: AlterSpecification {
+    defaultValue: Literal;
+    column: ColumnName;
+    isColumn: bool;
+}
+
+interface AlterDropDefaultColumn <: AlterSpecification {
+    column: ColumnName;
+    isColumn: bool;
+}
+
+interface AlterChangeColumn <: AlterSpecification {
+    isColumn: bool;
+    previousColumn: ColumnName;
+    newColumn: ColumnDeclaration;
+    isFirst: bool | null;
+    afterColumn: ColumnName | null;
+}
+
+interface AlterModifyColumn <: AlterSpecification {
+    isColumn: bool;
+    column: ColumnDeclaration;
+    isFirst: bool | null;
+    afterColumn: ColumnName;
+}
+
+interface AlterDropColumn <: AlterSpecification {
+    isColumn: bool;
+    column: ColumnName;
+}
+
+interface AlterAddKey <: AlterSpecification {
+    keyType: KeyType;
+    constraintName: Identifier | null;
+    indexName: IndexName | null;
+    indexType: IndexType | null;
+    indexColumns: [IndexColumnNameClause];
+    options: [CommonSimpleOption];
+    reference: ReferenceDeclarationClause | null;
+}
+
+interface AlterDropKey <: AlterSpecification {
+    keyType: KeyType;
+    indexName: IndexName | null;
+}
+
+interface AlterSpecPartition <: AlterSpecification {
+    action: PartitionAction;
+    isAll: bool | null;
+    partitions: [Identifier];
+    newPartition: PartitionDefinition;
+    coalesceValue: int | null;
+    reorgPartitions: [PartitionDefinition];
+    exchgPartition: Identifier | null;
+    exchgTable: TableName | null;
+    exchgValidationFormat: SyntaxFormat | null;
+}
+
+interface AlterSpecCommon <: AlterSpecification {
+    action: AlterAction;
+    algorithm: IndexAlgorithmOption | null;
+    lock: LockOption | null;
+    newName: Identifier | null;
+    orders: [Identifier];
+    charSetName: str | null;
+    collationName: str | null;
+    validationFormat: SyntaxFormat | null;
+    renameFormat: SyntaxFormat | null;
+}
+
+// DDL. Drop
+interface DropDatabaseStatement <: SingleQueryStatement {
+    ifExist: bool;
+    name: SchemaName;
+}
+
+interface DropEventStatement <: SingleQueryStatement {
+    event: EventName;
+    ifExist: bool;
+}
+
+interface DropIndexStatement <: SingleQueryStatement {
+    creationPlace: IntimeActionType | null;
+    index: IndexName;
+    table: TableName;
+    algorithm: IndexAlgorithmOption | null;
+    lock: LockOption | null;
+}
+
+interface DropLogfileGroupStatement <: SingleQueryStatement {
+    name: LogFileGroupName;
+    engine: str;
+}
+
+interface DropProcedureStatement <: SingleQueryStatement {
+    procedure: ProcedureName;
+    ifExist: bool;
+}
+
+interface DropFunctionStatement <: SingleQueryStatement {
+    function: UDFunctionName;
+    ifExist: bool;
+}
+
+interface DropServerStatement <: SingleQueryStatement {
+    server: ServerName;
+    ifExist: bool;
+}
+
+interface DropTableStatement <: SingleQueryStatement {
+    tables: [TableName];
+    isTemporary: bool;
+    ifExist: bool;
+    dropType: ConstraintDropType | null;
+}
+
+interface DropTablespaceStatement <: SingleQueryStatement {
+    tablespace: TablespaceName;
+    engine: str | null;
+}
+
+interface DropTriggerStatement <: SingleQueryStatement {
+    trigger: TriggerName;
+    ifExist: bool;
+}
+
+interface DropViewStatement <: SingleQueryStatement {
+    views: [ViewName];
+    ifExist: bool;
+    dropType: ConstraintDropType | null;
+}
+
+interface RenameStatement <: SingleQueryStatement {
+    clauses: [RenameTableClause];
+}
+
+interface RenameTableClause <: SingleQueryStatement {
+    from: TableName;
+    to: TableName;
+}
+
+interface TruncateStatement <: SingleQueryStatement {
+    table: TableName;
+    presentTable: bool;
+}
+
+// DML
+// DML. Primary
+interface CallStatement <: SingleQueryStatement {
+    name: ProcedureName;
+    parameters: [Expression];
+}
+
+interface DeleteStatement <: SingleQueryStatement {
+}
+
+interface SingleDeleteStatement <: DeleteStatement {
+    priority: Priority | null;
+    isIgnore: bool;
+    isQuick: bool;
+    table: TableName;
+    partitions: [Identifier];
+    whereClause: WhereClause | null;
+    orders: [SortItem];
+    limit: int | null;
+}
+
+interface MultipleDeleteStatement <: DeleteStatement {
+    priority: Priority | null;
+    format: DeletionFormat;
+    isIgnore: bool;
+    isQuick: bool;
+    tables: [TableName];
+    references: [TableReferenceClause];
+    whereClause: WhereClause | null;
+}
+
+interface DoStatement <: SingleQueryStatement {
+    expressions: [Expression];
+}
+
+interface HandlerStatement <: SingleQueryStatement {
+}
+
+interface HandlerOpenStatement <: HandlerStatement {
+    table: TableName;
+    presentAs: bool;
+    alias: Identifier | null;
+}
+
+interface HandlerReadComparasionStatement <: HandlerStatement {
+    table: TableName;
+    index: IndexName;
+    operator: ComparisonOperator | null;
+    values: [Literal];
+    whereClause: WhereClause | null;
+    limit: int | null;
+}
+
+interface HandlerReadOrderedStatement <: HandlerStatement {
+    table: TableName;
+    index: IndexName;
+    indexOrder: IndexOrder;
+    whereClause: WhereClause | null;
+    limit: int | null;
+}
+
+interface HandlerReadSimpleStatement <: HandlerStatement {
+    table: TableName;
+    indexOrder: IndexOrder;
+    whereClause: WhereClause | null;
+    limit: int | null;
+}
+
+interface HandlerCloseStatement <: HandlerStatement {
+    table: TableName;
+}
+
+interface InsertStatement <: SingleQueryStatement {
+}
+
+interface InsertSetStatement <: InsertStatement {
+    priority: Priority | null;
+    isIgnore: bool;
+    isIntoFormat: bool;
+    table: TableName;
+    partitions: [Identifier];
+    columns: [ColumnName];
+    expressions: [Expression];
+    onDuplicateKey: DuplicateKeyClause | null;
+}
+
+interface InsertQueryStatement <: InsertStatement {
+    priority: Priority | null;
+    isIgnore: bool;
+    isIntoFormat: bool;
+    table: TableName;
+    partitions: [Identifier];
+    columns: [ColumnName];
+    query: CommonSelectStatement;
+    onDuplicateKey: DuplicateKeyClause | null;
+}
+
+interface InsertRowStatement <: InsertStatement {
+    priority: Priority | null;
+    isIgnore: bool;
+    isIntoFormat: bool;
+    table: TableName;
+    partitions: [Identifier];
+    columns: [ColumnName];
+    rows: [InsertRowClause];
+    onDuplicateKey: DuplicateKeyClause | null;
+}
+
+interface InsertRowClause <: Node{
+    values: [Expression];
+}
+
+interface DuplicateKeyClause <: Node{
+    columns: [ColumnName];
+    values: [Expression];
+}
+
+interface LoadDataStatement <: SingleQueryStatement {
+    priority: Priority | null;
+    keyViolation: InsertViolateBehaviour | null;
+    isLocal: bool;
+    partitions: [Identifier];
+    table: TableName;
+    ignoreLines: int | null;
+    linesFormat: SyntaxFormat | null;
+    loadedColumns: [ColumnName | Variable];
+    setColumns: [ColumnName];
+    setValues: [Expression];
+    fieldsFormat: SyntaxFormat | null;
+    fileUnloadOptions: [CommonSimpleOption];
+}
+
+interface LoadXMLStatement <: SingleQueryStatement {
+    priority: Priority | null;
+    keyViolation: InsertViolateBehaviour | null;
+    isLocal: bool;
+    fileName: str;
+    table: TableName;
+    charSet: str | null;
+    tagDefinition: str | null;
+    ignoreLines: int | null;
+    linesFormat: SyntaxFormat | null;
+    loadedColumns: [ColumnName | Variable];
+    setColumns: [ColumnName];
+    setValues: [Expression];
+}
+
+interface ReplaceStatement <: SingleQueryStatement {
+}
+
+interface SetReplaceStatement <: ReplaceStatement {
+    priority: Priority | null;
+    isIntoFormat: bool;
+    table: TableName;
+    partitions: [Identifier];
+    columns: [ColumnName];
+    expressions: [Expression];
+}
+
+interface QueryReplaceStatement <: ReplaceStatement {
+    priority: Priority | null;
+    isIntoFormat: bool;
+    table: TableName;
+    partitions: [Identifier];
+    columns: [ColumnName];
+    query: CommonSelectStatement;
+}
+
+interface RowReplaceStatement <: ReplaceStatement {
+    priority: Priority | null;
+    isIntoFormat: bool;
+    table: TableName;
+    partitions: [Identifier];
+    columns: [ColumnName];
+    rows: [InsertRowClause];
+}
+
+interface CommonSelectStatement <: SingleQueryStatement {
+}
+
+interface SelectStatement <: CommonSelectStatement {
+    columns: [ColumnClause];
+    fromClause: FromClause | null;
+    whereClause: WhereClause | null;
+    groupBy: GroupByClause | null;
+    orders: [SortItem];
+    having: Expression | null;
+    limitLines: int | null;
+    limitOffset: int | null;
+    export: SelectExportClause | null;
+    lockFormat: SyntaxFormat | null;
+    specificators: [SelectSpecificators];
+}
+
+interface UpdateStatement <: SingleQueryStatement {
+}
+
+interface SingleUpdateStatement <: UpdateStatement {
+    priority: Priority | null;
+    isIgnore: bool;
+    table: TableName;
+    presentAs: bool;
+    alias: Identifier | null;
+    columns: [ColumnName];
+    values: [Expression];
+    whereClause: WhereClause | null;
+    orders: [SortItem];
+    limitLines: int | null;
+    limitOffset: int | null;
+}
+
+interface MultipleUpdateStatement <: UpdateStatement {
+    priority: Priority | null;
+    isIgnore: bool;
+    columns: [ColumnName];
+    values: [Expression];
+    tables: [TableReferenceClause];
+    whereClause: WhereClause | null;
+}
+
+interface SortItem <: Node {
+    expression: Expression;
+    sortType: SortType | null;
+}
+
+interface TableReferenceClause <: Node {
+}
+
+interface NestedTableClause <: TableReferenceClause {
+    tables: [TableReferenceClause];
+}
+
+interface JoinClause <: TableReferenceClause {
+    joinType: JoinType;
+    left: TableReferenceClause | null;
+    right: TableReferenceClause;
+    joinCondition: Expression | null;
+    joinColumns: [ColumnName];
+}
+
+interface SubqueryClause <: TableReferenceClause {
+    select: SubqueryExpression;
+    presentAs: bool;
+    alias: Identifier;
+}
+
+interface TableSource <: TableReferenceClause {
+    name: TableName;
+    partitions: [Identifier];
+    presentAs: bool;
+    alias: Identifier | null;
+    indexHints: [IndexHintList];
+}
+
+interface IndexHintList <: Node {
+    indexHintAction: IndexHintAction;
+    indexHintType: IndexHintType | null;
+    keyFormat: SyntaxFormat;
+    indexes: [IndexName];
+}
+
+// DML Select
+
+interface NestedSelectStatement <: CommonSelectStatement {
+    select: SelectStatement;
+}
+
+interface UnionStatement <: CommonSelectStatement {
+    clauses: [UnionClause];
+    orders: [SortItem];
+    limitLines: int | null;
+    limitOffset: int | null;
+}
+
+interface UnionClause <: Node {
+    statement: SelectStatement | NestedSelectStatement;
+    unionType: UnionType | null;
+}
+
+interface ColumnClause <: Node {
+    value: Expression | Star;
+    alias: Identifier | null;
+    presentAs: bool | null;
+}
+
+interface SelectExportClause <: Node {
+}
+
+interface ExportList <: SelectExportClause {
+    variables: [Identifier | Variable];
+}
+
+interface ExportDumpFile <: SelectExportClause {
+    fileName: str;
+}
+
+interface ExportTextFile <: SelectExportClause {
+    fileName: str;
+    fileUnloadOptions: [CommonSimpleOption];
+}
+
+interface FromClause <: Node {
+    tables: [TableReferenceClause];
+}
+
+interface WhereClause <: Node {
+    value: Expression;
+}
+
+interface GroupByClause <: Node {
+    values: [SortItem];
+    operator: GroupByOperator | null;
+}
+
+interface GroupByOperator <: Node {
+}
+
+interface SimpleGroupByOperator <: GroupByOperator {
+    name: SimpleGroupByOperatorType;
+    arguments: [Expression];
+}
+
+interface SetGroupByOperator <: GroupByOperator {
+    arguments: [Expression];
+}
+
+// Transactions Statements
+
+interface StartTransactionStatement <: SingleQueryStatement {
+   options: [TransactionOption]; 
+}
+
+interface BeginWorkStatement <: SingleQueryStatement {
+    presentWork: bool;
+}
+
+interface CommitWorkStatement <: SingleQueryStatement {
+    presentWork: bool;
+    isChain: bool | null;
+    isRelease: bool | null;
+}
+
+interface RollbackWorkStatement <: SingleQueryStatement {
+    presentWork: bool;
+    isChain: bool | null;
+    isRelease: bool | null;
+}
+
+interface SavepointStatement <: SingleQueryStatement {
+    savepoint: Identifier;
+}
+
+interface RollbackStatement <: SingleQueryStatement {
+    presentWork: bool;
+    presentSavepoint: bool;
+    savepoint: Identifier;
+}
+
+interface ReleaseStatement <: SingleQueryStatement {
+    savepoint: Identifier;
+}
+
+interface LockTablesStatement <: SingleQueryStatement {
+    tables: [LockTableClause];
+}
+
+interface UnlockTablesStatement <: SingleQueryStatement {
+}
+
+interface SetAutocommitStatement <: SetStatement {
+    value: bool;
+}
+
+interface SetTransactionStatement <: SetStatement {
+    context: TransactionContext | null;
+    options: [TransactionDescriptor];
+}
+
+interface LockTableClause <: Node {
+    table: TableName;
+    presentAs: bool;
+    alias: Identifier | null;
+    lockAction: LockTableAction;
+}
+
+interface TransactionDescriptor <:  Node {
+    level: TransactionLevel | null;
+    option: TransactionOption | null;
+}
+
+// Replications Statements
+
+interface ChangeMasterStatement <: SingleQueryStatement {
+    options: [CommonSimpleOption];
+    channel: str | null;
+}
+
+interface ChangeFilterStatement <: SingleQueryStatement {
+    options: [CommonSimpleOption];
+}
+
+interface PurgeLogsStatement <: SingleQueryStatement {
+    purgeFormat: SyntaxFormat;
+    file: str | null;
+    time: str | null;
+}
+
+interface ResetMasterStatement <: SingleQueryStatement {
+}
+
+interface ResetSlaveStatement <: SingleQueryStatement {
+    presentAll: bool;
+    channel: str | null;
+}
+
+interface StartSlaveStatement <: SingleQueryStatement {
+    threads: [ThreadType];
+    channel: str | null;
+    untilOptions: [CommonSimpleOption];
+    connectionOptions: [CommonSimpleOption];
+}
+
+interface StopSlaveStatement <: SingleQueryStatement {
+    threads: [ThreadType];
+}
+
+interface StartGroupStatement <: SingleQueryStatement {
+}
+
+interface StopGroupStatement <: SingleQueryStatement {
+}
+
+interface GTID <: Node {
+    uuids: [UUID];
+    value: str | null;
+}
+
+interface UUID <: Node {
+    value: str;
+}
+
+interface TablePair <: Node {
+    firstTable: TableName;
+    secondTable: TableName;
+}
+
+interface XAStartTransactionStatement <: SingleQueryStatement {
+    startFormat: SyntaxFormat;
+    name: XIDName;
+    actionFormat: SyntaxFormat | null;
+}
+
+interface XAEndTransactionStatement <: SingleQueryStatement {
+    name: XIDName;
+    suspendFormat: SyntaxFormat | null;
+}
+
+interface XAPrepareStatement <: SingleQueryStatement {
+    name: XIDName;
+}
+
+interface XACommitStatement <: SingleQueryStatement {
+    name: XIDName;
+    phaseFormat: SyntaxFormat | null;
+}
+
+interface XARollbackStatement <: SingleQueryStatement {
+    name: XIDName;
+}
+
+interface XARecoverStatement <: SingleQueryStatement {
+    name: XIDName | null;
+}
+
+// Prepared Statements
+interface PrepareStatement <: SingleQueryStatement { 
+    id: Identifier;
+    query: str | null;
+    variable: Variable | null;
+}
+
+interface ExecuteStatement <: SingleQueryStatement { 
+    id: Identifier;
+    variables: [Variable];
+}
+
+interface DeallocateStatement <: SingleQueryStatement { 
+    deallocateFormat: SyntaxFormat;
+    id: Identifier;
+}
+
+// Compound Statements
+
+interface RoutineStatement <: CommonStatement { 
+}
+
+interface BlockQueryStatement <: Statement {
+    body: [CommonStatement];
+    label: Identifier | null;
+}
+
+interface CaseStatement <: RoutineStatement {
+    test: Expression | null;
+    alternatives: [ConditionChoiceOption];
+    elseAlternatives: [Statement];
+}
+
+interface IfStatement <: RoutineStatement {
+    test: Expression;
+    statements: [Statement];
+    alternatives: [ConditionChoiceOption];
+    elseAlternatives: [Statement];
+}
+
+interface IterateStatement <: RoutineStatement {
+    label: Identifier;
+}
+
+interface LeaveStatement <: RoutineStatement {
+    label: Identifier;
+}
+
+interface LoopStatement <: RoutineStatement {
+    label: Identifier;
+    statements: [Statement];
+}
+
+interface RepeatStatement <: RoutineStatement {
+    test: Expression;
+    label: Identifier;
+    statements: [Statement];
+}
+
+interface ReturnStatement <: RoutineStatement {
+    value: Expression;
+}
+
+interface WhileStatement <: RoutineStatement {
+    test: Expression;
+    label: Identifier;
+    statements: [Statement];
+}
+
+interface OpenCursorStatement <: RoutineStatement {
+    name: Identifier;
+}
+
+interface FetchCursorStatement <: RoutineStatement {
+    name: Identifier;
+    variables: [Identifier];
+    presentFrom: bool;
+    presentNext: bool;
+}
+
+interface CloseCursorStatement <: RoutineStatement {
+    name: Identifier;
+}
+
+interface StatementDeclaration <: RoutineStatement {
+}
+
+interface VariableDeclaration <: StatementDeclaration {
+    variables: [Identifier];
+    dataType: DataTypeClause;
+    defaultValue: Literal | null;
+}
+
+interface ConditionDeclaration <: StatementDeclaration {
+    name: Identifier;
+    errorCode: int | null;
+    sqlState: str | null;
+    presentValue: bool | null;
+}
+
+interface CursorDeclaration <: StatementDeclaration {
+    cursor: Identifier;
+    select: CommonSelectStatement;
+}
+
+interface HandlerDeclaration <: StatementDeclaration {
+    action: HandlerAction;
+    conditions: [HandlerCondition];
+    statement: Statement;
+}
+
+interface HandlerCondition <: Node {
+}
+
+interface HandlerConditionCode <: HandlerCondition {
+    value: int;
+}
+
+interface HandlerConditionSQLState <: HandlerCondition {
+    value: str;
+    presentValue: bool;
+}
+
+interface HandlerConditionName <: HandlerCondition {
+    value: str;
+}
+
+interface HandlerConditionWarning <: HandlerCondition {
+}
+
+interface HandlerConditionNotFound <: HandlerCondition {
+}
+
+interface HandlerConditionException <: HandlerCondition {
+}
+
+interface ConditionChoiceOption <: Node {
+    test: Expression;
+    statements: [Statement];
+}
+
+// Administrations Statements
+//  Administraitions. Account management statements
+
+interface AlterUserShortStatement <: SingleQueryStatement {
+    users: [UserName];
+    passwordOptions: [PasswordExpirationClause];
+}
+
+interface AlterUserFullStatement <: SingleQueryStatement {
+    ifExists: bool;
+    userAuthOptions: [UserClause];
+    tlsOptions: [TLSOptionClause];
+    resourseOptions: [CommonSimpleOption];
+    passwordOptions: [PasswordExpirationClause];
+    isLock: bool | null;
+}
+
+interface CreateUserStatement <: SingleQueryStatement {
+    ifExists: bool;
+    userAuthOptions: [UserClause];
+    tlsOptions: [TLSOptionClause];
+    resourseOptions: [CommonSimpleOption];
+    passwordOptions: [PasswordExpirationClause];
+    isLock: bool | null;
+}
+
+interface DropUserStatement <: SingleQueryStatement {
+    user: [UserName];
+    ifExists: bool;
+}
+
+interface GrantStatement <: SingleQueryStatement {
+    privileges: [PrivilegeClause];
+    objectType: PrivilegeObjectType;
+    userAuthOptions: [UserClause];
+    tlsOptions: [TLSOptionClause];
+    resourseOptions: [CommonSimpleOption];
+    isGrantOption: bool;
+    level: PrivilegeLevelClause;
+}
+
+interface GrantProxyStatement <: SingleQueryStatement {
+    from: UserName;
+    to: [UserName];
+    isGrantOption: bool;
+}
+
+interface RenameUserStatement <: SingleQueryStatement {
+    clauses: [RenameUserClause];
+}
+
+interface RenameUserClause <: Node {
+    from: UserName;
+    to: UserName;
+}
+
+interface RevokeStatement <: SingleQueryStatement {
+    privileges: [PrivilegeClause];
+    objectType: PrivilegeObjectType;
+    level: PrivilegeLevelClause;
+    users: [UserName];
+}
+
+interface FullRevokeStatement <: SingleQueryStatement {
+    users: [UserName];
+    presentPrivileges: bool;
+}
+
+interface RevokeProxyStatement <: SingleQueryStatement {
+    on: UserName;
+    from: [UserName];
+}
+
+interface SetPasswordStatement <: SetStatement {
+    user: UserName | null;
+    value: str | null;
+    expression: PasswordFunctionCall | null;
+}
+
+interface PasswordExpirationClause <: Node {
+    expireType: PasswordExpirationType | null;
+    expireValue: int;
+}
+
+interface UserClause <: Node {
+    user: UserName;
+    passwordFormat: SyntaxFormat;
+    hashText: str | null;
+    plainText: str | null;
+    authPlugin: AuthPlugin | null;
+}
+
+interface TLSOptionClause <: Node {
+    option: TLSOptionName;
+    value: str | null;
+}
+
+interface PrivilegeClause <: Node {
+    privilege: PrivilegeName;
+    columns: [Identifier];
+}
+
+interface PrivilegeLevelClause <: Node {
+    level: PrivilegeLevel;
+    schema: SchemaName | null;
+    table: TableName | null;
+    routine: ProcedureName | UDFunctionName | null;
+}
+
+// Administrations. Table Maintenance statements
+
+interface AnalyzeTableStatement <: SingleQueryStatement {
+    tables: [TableName];
+    actionOption: SyntaxFormat;
+}
+
+interface CheckTableStatement <: SingleQueryStatement {
+    tables: [TableName];
+    options: [CheckTableOption];
+}
+
+interface ChecksumTableStatement <: SingleQueryStatement {
+    tables: [TableName];
+    actionOption: SyntaxFormat | null;
+}
+
+interface OptimizeTableStatement <: SingleQueryStatement {
+    tables: [TableName];
+    actionOption: SyntaxFormat | null;
+}
+
+interface RepairTableStatement <: SingleQueryStatement {
+    tables: [TableName];
+    actionOption: SyntaxFormat | null;
+    isQuick: bool;
+    isExtended: bool;
+    isUseFrm: bool;
+}
+
+// Administrations. Plugins statements
+
+interface CreateUDFunctionStatement <: SingleQueryStatement {
+    presentAggregate: bool;
+    id: Identifier;
+    return: ReturnDataType;
+    name: str;
+}
+
+interface InstallPluginStatement <: SingleQueryStatement {
+    id: Identifier;
+    name: str;
+}
+
+interface UninstallPluginStatement <: SingleQueryStatement {
+    id: Identifier;
+}
+
+// Administrations. Set, show statements
+interface SetStatement <: SingleQueryStatement {
+}
+
+interface SetVariableStatement <: SetStatement {
+    variables: [Variable];
+    expressions: [Expression];
+}
+
+interface SetCharsetStatement <: SetStatement {
+    charSetName: CharSet | null;
+    charsetFormat: SyntaxFormat;
+    isNameDefault: bool;
+}
+
+interface SetNamesStatement <: SetStatement {
+    charSetName: CharSet | null;
+    collationName: str | null;
+    isNameDefault: bool;
+}
+
+interface ShowStatement <: SingleQueryStatement {
+}
+
+interface ShowLogsStatement <: ShowStatement {
+    logTypeFormat: SyntaxFormat;
+}
+
+interface ShowLogEventsStatement <: ShowStatement {
+    logTypeFormat: SyntaxFormat;
+    filename: str | null;
+    fromPosition: int | null;
+    limitOffset: int | null;
+    limitCount: int | null;
+}
+
+interface ShowEntityStatement <: ShowStatement {
+    entity: CommonEntity;
+    filter: ShowFilterClause | null;
+    schema: SchemaName | null;
+    schemaFormat: SyntaxFormat | null;
+}
+
+interface ShowColumnsStatement <: ShowStatement {
+    presentFull: bool;
+    columnFormat: SyntaxFormat;
+    tableFormat: SyntaxFormat;
+    table: TableName;
+    schemaFormat: SyntaxFormat | null;
+    schema: SchemaName | null;
+    filter: ShowFilterClause | null;
+}
+
+interface ShowCreateSchemaStatement <: ShowStatement {
+    schemaFormat: SyntaxFormat | null;
+    ifNotExists: bool;
+    schema: SchemaName | null;
+}
+
+interface ShowCreateNamedEntityStatement <: ShowStatement {
+    entity: NamedEntity;
+    entityName: FullName;
+}
+
+interface ShowCreateUserStatement <: ShowStatement {
+    user: UserName;
+}
+
+interface ShowEngineStatement <: ShowStatement {
+    engine: str;
+    engineFormat: SyntaxFormat;
+}
+
+interface ShowInfoStatement <: ShowStatement {
+    entity: CommonEntity;
+}
+
+interface ShowErrorsStatement <: ShowStatement {
+    errorFormat: SyntaxFormat;
+    limitOffset: int | null;
+    limitCount: int | null;
+}
+
+interface ShowCountErrorsStatement <: ShowStatement {
+    errorFormat: SyntaxFormat;
+}
+
+interface ShowRoutineCodeStatement <: ShowStatement {
+    routine: NamedEntity;
+    routineName: FullName;
+}
+
+interface ShowGrantsStatement <: ShowStatement {
+    user: UserName | null;
+}
+
+interface ShowIndexesStatement <: ShowStatement {
+    entity: CommonEntity;
+    tableFormat: SyntaxFormat;
+    table: TableName;
+    schemaFormat: SyntaxFormat | null;
+    schema: SchemaName | null;
+    whereClause: WhereClause | null;
+}
+
+interface ShowOpenTablesStatement <: ShowStatement {
+    schemaFormat: SyntaxFormat | null;
+    schema: SchemaName | null;
+    filter: ShowFilterClause | null;
+}
+
+interface ShowProfileStatement <: ShowStatement {
+    profileTypes: [ProfileType];
+    queryCount: int | null;
+    limitOffset: int | null;
+    limitCount: int | null;
+}
+
+interface ShowSlaveStatement <: ShowStatement {
+    channel: str | null;
+}
+
+interface ShowFilterClause <: Node {
+    expression: Expression | null;
+    pattern: StringLiteral | null;
+}
+
+// Administrative. Other statements
+
+interface BinlogStatement <: SingleQueryStatement {
+    filename: str;
+}
+
+interface CacheIndexStatement <: SingleQueryStatement {
+    tableIndexes: [TableIndexClause];
+    partitions: [Identifier];
+    isAll: bool;
+    schema: SchemaName;
+}
+
+interface FlushStatement <: SingleQueryStatement {
+    flushFormat: SyntaxFormat | null;
+    options: [FlushOption];
+}
+
+interface KillStatement <: SingleQueryStatement {
+    connectionFormat: SyntaxFormat | null;
+    connections: [int];
+}
+
+interface LoadIndexStatement <: SingleQueryStatement {
+    tableIndexes: [TableIndexClause];
+}
+
+interface ResetStatement <: SingleQueryStatement {
+}
+
+interface ShutdownStatement <: SingleQueryStatement {
+}
+
+interface TableIndexClause <: Node {
+    table: TableName;
+    indexFormat: SyntaxFormat | null;
+    indexes: [Identifier];
+    partitions: [Identifier];
+    isAllPartitiions: bool | null;
+    isIgnoreLeaves: bool | null;
+}
+
+interface FlushOptionClause <: Node {
+}
+
+interface SimpleFlushOptionClause <: FlushOptionClause {
+    option: FlushOption;
+}
+
+interface ChannelFlushOptionClause <: FlushOptionClause {
+    channel: str;
+}
+
+interface TablesFlushOptionClause <: FlushOptionClause {
+    tables: [TableName];
+}
+
+// Utility Statements
+
+interface TableDescription <: SingleQueryStatement {
+    describeKeyword: DescriptionStatementType;
+    table: TableName;
+    column: ColumnName | null;
+    columnWildcard: str | null;
+}
+
+interface FullTableDescription <: SingleQueryStatement {
+    describeKeyword: DescriptionStatementType;
+    describeFormat: FormatDescriptionClause | null;
+    describeObject: ObjectDescriptionClause;
+}
+
+interface HelpStatement <: SingleQueryStatement {
+    question: str;
+}
+
+interface UseStatement <: SingleQueryStatement {
+    schema: SchemaName;
+}
+
+interface FormatDescriptionClause <: Node {
+    formatObject: FormatDescriptionObject;
+    formatValue: DescribeFormatValue;
+}
+
+interface ObjectDescriptionClause <: Node {
+    statement: 
+        CommonSelectStatement 
+        | DeleteStatement 
+        | InsertStatement 
+        | ReplaceStatement 
+        | UpdateStatement
+        | null;
+    connectionId: Identifier | null;
+}
+
+// Details
+// Details Object Names
+interface FullName <: Node {
+}
+
+interface TableName <: FullName {
+    db: Identifier | null;
+    schema: Identifier | null;
+    table: Identifier;
+}
+
+interface ColumnName <: Primitive {
+    db: Identifier | null;
+    schema: Identifier | null;
+    table: Identifier | null;
+    column: Identifier | Star;
+}
+
+interface IndexColumnNameClause <: Node {
+    columnName: Identifier;
+    length: int | null;
+    sortType: SortType | null;
+}
+
+interface UserName <: Node {
+    name: str;
+    host: str;
+}
+
+interface FixedUserName <: Node {
+    value: LiteralUserName;
+}
+
+interface Variable <: Primitive {
+    isSystem: bool | null;
+    name: str;
+    value: str | null;
+}
+
+interface CharSet <: Node {
+    name: str;
+}
+
+interface XIDName <: Node {
+    gtrid: str;
+    bqual: str | null;
+    formatId: int | null;
+}
+
+interface AuthPlugin <: Node {
+    id: Identifier | null;
+    name: str | null;
+}
+
+interface DbName <: Node {
+    db: Identifier;
+}
+
+interface SchemaName <: Node {
+    db: Identifier | null;
+    schema: Identifier;
+}
+
+interface IndexName <: Node {
+    name: Identifier;
+}
+
+interface ViewName <: FullName {
+    db: Identifier | null;
+    schema: Identifier | null;
+    view: Identifier;
+}
+
+interface TriggerName <: FullName {
+    db: Identifier | null;
+    schema: Identifier | null;
+    trigger: Identifier;
+}
+
+interface EventName <: FullName {
+    db: Identifier | null;
+    schema: Identifier | null;
+    event: Identifier;
+}
+
+interface ProcedureName <: FullName {
+    db: Identifier | null;
+    schema: Identifier | null;
+    routine: Identifier;
+}
+
+interface UDFunctionName <: FullName {
+    db: Identifier | null;
+    schema: Identifier | null;
+    routine: Identifier;
+}
+
+interface TablespaceName <: Node {
+    name: Identifier;
+}
+
+interface LogFileGroupName <: Node {
+    name: Identifier;
+}
+
+interface ServerName <: Node {
+    name: Identifier;
+}
+
+// Details. Literals
+
+interface Range <: Node {
+    start: Expression;
+    end: Expression;
+    separator: str;
+}
+
+interface Star <: Node {
+}
+
+interface Identifier <: Primitive {
+    name: str;
+}
+
+interface Literal <: Primitive {
+}
+
+interface StringLiteral<: Literal {
+    value: str;
+}
+
+interface RealLiteral<: Literal {
+    value: str;
+}
+
+interface HexadecimalLiteral<: Literal {
+    value: str;
+}
+
+interface BitStringLiteral<: Literal {
+    value: str;
+}
+
+interface NullLiteral<: Literal {
+    value: str;
+}
+
+interface NotNullLiteral<: Literal {
+    value: str;
+}
+
+interface BooleanLiteral<: Literal {
+    value: bool;
+}
+
+interface NumberLiteral<: Literal {
+    value: str;
+}
+
+// Details. DataTypes
+
+interface DataTypeClause <: Node {
+}
+
+interface SimpleDataTypeClause <: DataTypeClause {
+    typeName: DataType;
+}
+
+interface SpatialDataTypeClause <: DataTypeClause {
+    typeName: SpatialDataType;
+}
+
+interface DimensionDataTypeClause <: DataTypeClause {
+    typeName: DataType;
+    length: int | null;
+    secondLength: int | null;
+    isUnsigned: bool | null;
+    isZerofill: bool | null;
+}
+
+interface CharDataTypeClause <: DataTypeClause {
+    typeName: DataType;
+    length: int | null;
+    isBinary: bool;
+    charSetName: CharSet | null;
+    collationName: str | null;
+}
+
+interface CollectionCharDataTypeClause <: DataTypeClause {
+    typeName: DataType;
+    isBinary: bool;
+    charSetName: CharSet | null;
+    collationName: str | null;
+    values: [Literal];
+}
+
+interface ConvertedDataType <: Node {
+    dataType: ConvertedDataTypeValue;
+    firstDim: int | null;
+    secondDim: int | null;
+    charSet: CharSet | null;
+}
+
+// Details. Functions call
+
+interface FunctionCall <: Primitive {
+}
+
+interface UDFunctionCall<: FunctionCall {
+    name: UDFunctionName;
+    arguments: [Expression] | null;
+}
+
+interface SimpleFunctionCall<: FunctionCall {
+    name: str;
+    arguments: [Expression];
+    over: OverClause | null;
+}
+
+interface AggregateFunctionCall<: FunctionCall {
+    name: str;
+    aggregator: RowAggregator | null;
+    arguments: [Expression];
+    orders: [SortItem];
+    separator: str | null;
+    over: OverClause | null;
+}
+
+interface CaseFunctionCall <: FunctionCall {
+    expression: Expression | null;
+    cases: [CaseClause];
+    elseCase: Expression | null;
+}
+
+interface CaseClause <: Node{
+    whenClause: Expression;
+    thenClause: Expression;
+}
+
+interface ShortFormFunctionCall <: FunctionCall {
+    name: str;
+}
+
+interface ComplexFunctionCall <: FunctionCall {
+    name: str;
+    arguments: [ComplexArgument];
+}
+
+interface PasswordFunctionCall <: FunctionCall {
+    nameFormat: SyntaxFormat;
+    argument: Expression;
+}
+
+interface OverClause<: Node {
+    overPartitions: [Expression];
+    orders: [SortItem];
+    ranges: [ExpressionArgument];
+}
+
+interface ComplexArgument <: Node {
+}
+
+interface ExpressionArgument <: ComplexArgument {
+    keyword: str | null;
+    keywordPosition: KeywordPosition | null;
+    value: Expression;
+    separator: str | null;
+}
+
+interface KeywordArgument <: ComplexArgument {
+    keyword: str;
+    separator: str | null;
+}
+
+interface TypedArgument <: ComplexArgument {
+    keyword: str | null;
+    keywordPosition: KeywordPosition | null;
+    value: ConvertedDataType;
+    separator: str | null;
+}
+interface CharsetArgument <: ComplexArgument {
+    keyword: str | null;
+    keywordPosition: KeywordPosition | null;
+    value: CharSet;
+    separator: str | null;
+}
+
+interface NestedArgument <: ComplexArgument {
+    keyword: str | null;
+    keywordPosition: KeywordPosition | null;
+    values: [ComplexArgument];
+}
+
+// Details. Expressions
+interface Expression <: Node { 
+}
+
+interface Predicate <: Expression { 
+}
+
+interface Primitive <: Predicate { 
+}
+
+interface LogicalExpression <: Expression {
+    isUnary: bool;
+    operator: LogicalOperator;
+    left: Expression;
+    right: Expression | null;
+}
+
+interface IsExpression <: Expression {
+    notArgument: bool;
+    value: Predicate;
+    match: LogicalMatch;
+}
+
+interface IsNullPredicate <: Predicate {
+    notArgument: bool;
+    value: Predicate;
+}
+
+interface ComparisonPredicate <: Predicate {
+    operator: ComparisonOperator;
+    left: Predicate;
+    right: Predicate;
+}
+
+interface ComparisonSetPredicate <: Predicate {
+    operator: ComparisonOperator;
+    quantifier: QuantifierType;
+    value: Predicate;
+    subquery: SubqueryExpression;
+}
+
+interface InPredicate <: Predicate {
+    isSubquery: bool;
+    notArgument: bool;
+    subquery: SubqueryExpression | null;
+    comparableValue: Predicate;
+    comparedValues: [Expression];
+}
+
+interface BetweenPredicate <: Predicate {
+    notArgument: bool;
+    value: Predicate;
+    left: Predicate;
+    right: Predicate;
+}
+
+interface LikePredicate <: Predicate {
+    notArgument: bool;
+    operator: TypeLike;
+    value: Predicate;
+    pattern: Predicate;
+    escapeString: str | null;
+}
+
+interface UnaryExpression <: Primitive {
+    operator: UnaryOperator;
+    value: Primitive;
+}
+
+interface BinaryExpression <: Primitive {
+    operator: BinaryOperator;
+    left: Primitive;
+    right: Primitive;
+}
+
+interface ParenthesisExpression <: Primitive {
+    value: Expression;
+}
+
+interface ExistsExpression <: Primitive {
+    subquery: SubqueryExpression;
+}
+
+interface SubqueryExpression<: Primitive {
+    subquery: CommonSelectStatement;
+}
+
+interface IntervalExpression <: Primitive {
+    intervalType: IntervalType;
+    value: Expression;
+}
+
+interface KeywordPrimitive <: Primitive {
+    keyword: KeywordLiteral;
+}
+
+interface RowPrimitive <: Primitive {
+    isTuple: bool;
+    values: [Expression];
+}
+
+interface StringPrimitive <: Primitive {
+    transformationType: StringTransformType;
+    value: Primitive;
+    collationName: str | null;
+}
+
+
+// Not classified constructions. SimpleOptions
+
+interface CommonSimpleOption <: Node {
+}
+
+interface StringSimpleOption <: CommonSimpleOption {
+    name: str;
+    value: str;
+    format: SyntaxFormat | null;
+}
+
+interface ListStringSimpleOption <: CommonSimpleOption {
+    name: str;
+    value: [str];
+    format: SyntaxFormat | null;
+}
+
+interface NumberSimpleOption <: CommonSimpleOption {
+    name: str;
+    value: int;
+    format: SyntaxFormat | null;
+}
+
+interface BooleanSimpleOption <: CommonSimpleOption {
+    name: str;
+    value: bool;
+    format: SyntaxFormat | null;
+}
+
+interface NodeSimpleOption <: CommonSimpleOption {
+    name: str;
+    value: Node;
+    format: SyntaxFormat | null;
+}
+
+interface ListSimpleOption <: CommonSimpleOption {
+    name: str;
+    value: [Node];
+    format: SyntaxFormat | null;
+}

@@ -1,0 +1,28 @@
+SELECT * FROM customer WHERE email='str'
+SELECT * FROM passbook
+SELECT * FROM beneficiary1 WHERE sender_id='str' AND reciever_id='str'
+CREATE TABLE passbook (transactionid int(5) AUTO_INCREMENT, transactiondate date, name VARCHAR(255), branch VARCHAR(255), ifsc VARCHAR(255), credit int(10), debit int(10), amount float(10,2), narration VARCHAR(255), PRIMARY KEY (transactionid))
+insert into beneficiary1 values('','str','str','str','str','str')
+SELECT MAX(id) from customer
+insert into customer values('str','str','str','str','str','str','str','str', 'str','str','str','str','str','str')
+insert into passbook values('str','str','str','str','str','str','str','str', 'str')
+insert into customer values('str','str','str','str','str','str','str','str', 'str','str','str','str')
+UPDATE admin SET pwd='str' WHERE id='str'
+UPDATE staff SET pwd='str' WHERE email='str'
+UPDATE customer SET password='str' WHERE id='str'
+UPDATE customer SET  name='str', dob='str', nominee='str', account='str', card='str', mobile='str', gender='str' WHERE id='str'
+UPDATE staff SET name='str', dob='str', relationship='str', department='str', doj='str', address='str', mobile='str', gender='str' WHERE id='str'
+SELECT * FROM passbook WHERE transactiondate BETWEEN 'str' AND 'str'
+insert into atm values('','str','str','str')
+UPDATE customer SET lastlogin='str' WHERE id='str'
+SELECT * FROM passbook LIMIT 10
+SELECT * FROM beneficiary1 WHERE sender_id='str' AND status='str'
+insert into passbook values('str','str','str','str','str','str','str','str')
+insert into passbook values('str','str','str','str','str','str','str','str','str')
+DELETE FROM beneficiary1 WHERE id='str'
+SELECT MIN(id) from customer
+SELECT * FROM `str`
+DELETE FROM `customer` WHERE `id` = 'str'
+DROP TABLE passbook
+SELECT name,password FROM customer WHERE name='str' AND password='str'
+UPDATE beneficiary1 SET status='str' WHERE id='str'

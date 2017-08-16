@@ -1,0 +1,83 @@
+enum Modifiers {
+    "private" | "public" | "static" | "protected" | "const" | "abstract"
+}
+
+enum SimpleType {
+    "str" | "float" | "int" | "bool" | "null" | "void" | "any"
+}
+
+interface Identifier <: Node {
+    node: "Identifier";
+    name: str;
+}
+
+interface UnionType <: Node {
+    node: "UnionType";
+    types: [TypeReference];
+}
+
+interface TypeReference <: Node {
+    node: "TypeReference";
+    type: Identifier | SimpleType | UnionType;
+    isPointer: bool;
+    isSequence: bool;
+}
+
+interface Block <: Node {
+    node: "Block";
+    body: [Block | str];
+}
+
+interface VariableDeclaration <: Node {
+    node: "VariableDeclaration";
+    name: Identifier;
+    type: SimpleType | TypeReference;
+}
+
+interface Argument <: Node {
+    node: "Argument";
+    name: Identifier;
+    type: SimpleType | TypeReference;
+    default: any
+}
+
+interface FunctionDeclaration <: Node {
+    node: "FunctionDeclaration";
+    name: Identifier;
+    arguments: [Argument];
+    returns: [TypeReference];
+    body: Block;
+}
+
+interface MethodDeclaration <: FunctionDeclaration {
+    node: "MethodDeclaration";
+    modifiers: [Modifier] | null;
+}
+
+interface Constructor <: MethodDeclaration {
+    node: "Constructor";
+    body: Block | null;
+}
+
+interface FieldDeclaration <: VariableDeclaration {
+    node: "FieldDeclaration";
+    tags: [FieldTag];
+    modifiers: [Modifier] | null;
+    default: any
+}
+
+interface FieldTag <: Node {
+    node: "FieldTag";
+    name: Identifier;
+    value: str;
+}
+
+interface ClassDeclaration <: Node {
+    node: "ClassDeclaration";
+    name: Identifier;
+    modifiers: [Modifier] | null;
+    parents: [Identifier] | null;
+    field: [FieldDeclaration] | null;
+    methods: [MehodsDeclaration] | null;
+    constructor: Constructor | null;
+}

@@ -1,0 +1,44 @@
+{%- macro gen_parents (class_) -%}
+    {% if class_.parents|length > 1 -%}
+        {% raise 'Only one parent class can be used in ECMAScript.' %}
+    {% elif class_.parents|length == 1 %}
+        {{- 'extends' }}
+        {%- set comma = joiner(",") -%}
+        {% for parent in class_.parents %}{{ comma() }} {{ parent }}{% endfor -%}
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro gen_constructor (class_) -%}
+    {{-'constructor'-}}(
+    {%- set comma = joiner(",") -%}
+    {%- for field in class_.fields %}{{ comma() }} {{- field.name }}{%- endfor -%}
+    ) {{- ' {' }}
+    {% filter indent(4, True) %}
+        {%- for field in class_.fields -%}
+            this.{{ field.name }} = {{ field.name ~ '\n'}}
+        {%- endfor -%}
+    {% endfilter%}
+    {{- ' \n}' }}
+{%- endmacro -%}
+
+{%- macro gen_property(prop_) -%}
+    {{- 'get' }} {{ prop_.name}}() {{'{'}}
+    throw new Error('You have to implement the method {{ prop_.name}}()');
+    {{- '\n}' }}
+{%- endmacro -%}
+
+{%- macro gen_class(class_) -%}
+    class {{ class_.name }} {{ gen_parents(class_)}} {{- ' {' }}
+    {% filter indent(4, True) %}
+        {{- gen_constructor(class_) }}
+        {% for prop in class_.fields -%}
+            {{ gen_property(prop)}}
+        {% endfor %}
+    {% endfilter%}
+    {{-'\n}'}}
+
+{%- endmacro -%}
+
+{% for cls in classes -%}
+    {{ gen_class(cls) ~ '\n'}}
+{% endfor %}

@@ -1,0 +1,145 @@
+{%- macro gen_block(node, full_block) -%}
+    {% if full_block %}{{- "\n{\n" }}{% endif %}
+    {%- if node.body | length > 0 -%}
+    {%- filter indent(4, True) -%}
+        {% for line in node.body %}
+            {%- if line is block -%}
+                {{- gen_block(line, full_block=True) }}
+            {% else %}
+                {{- line }}
+            {%- endif %}
+        {% endfor %}
+    {%- endfilter -%}
+    {%- endif -%}
+    {% if full_block %}{{ "\n}" }}{% endif %}
+{%- endmacro -%}
+
+{%- macro method_declaration(method) -%}
+    {{- method.modifiers | gen_modifiers }}
+        {{- method.returns | gen_return | indent(1, True)}}
+        {{- method.name.name | indent(1, True) }}(
+        {%- for arg in method.arguments -%}
+            {{  arg | typed }} {{ arg | name }} {%- if not loop.last -%}, {% endif -%}
+        {%- endfor -%}
+    )
+{%- endmacro -%}
+
+{%- macro method_definition(method, cls_name) -%}
+    {{- method.returns | gen_return }}
+        {{- cls_name.name | indent(1, True) }}::{{- method.name.name }}(
+        {%- for arg in method.arguments -%}
+            {{  arg | typed }} {{ arg | name }} {%- if not loop.last -%}, {% endif -%}
+        {%- endfor -%}
+    )
+    {{- gen_block(method.body, full_block=True) }}
+{%- endmacro -%}
+
+{%- macro constructor_header(init, cls_name) -%}
+    {{- cls_name }} (
+    {%- for arg in init.arguments -%}
+        {% if not loop.first %}{{ ' ' * cls_name|length }} {% endif -%}
+        {{  arg | typed }} {{ arg | name }}_
+        {%- if arg.type|is_nullable %} = nullptr
+        {%- endif %}
+        {%- if not loop.last %}{{ ",\n" }}{% endif %}
+    {%- endfor -%}
+    )
+{%- endmacro -%}
+
+{%- macro constructor_definition(init, cls) -%}
+    {# Constructor header #}
+    {{- constructor_header(init, cls.name.name) }}
+    {## Constructor initializer_list #}
+    {%- set in_fields, other = cls|separate_args -%}
+    {%- if init.arguments|length > 0 %}: {% endif -%}
+    {%- for arg in in_fields %}
+        {{- arg|name }}({{ arg|name }}_)
+        {%- if not loop.last or other|length>0 %}{{ ",\n" }}{%- endif %}
+    {%- endfor %}
+    {%- if cls.parents and other|length>0 -%}
+        {{ cls.parents[0] }}(
+        {%- for arg in other -%}
+            {{ arg|name }}_
+            {%- if not loop.last -%}, {% endif -%}
+        {% endfor -%})
+    {%- endif -%}
+    {# Constructor body #}
+    {{- gen_block(init.body, full_block=True) }}
+{%- endmacro -%}
+
+{% macro parents_list(parents) %}
+    {%- if parents -%} {{ ": " }}
+        {%- for parent in parents -%}
+            public {{ parent.name }}
+            {%- if not loop.last -%}, {% endif -%}
+        {% endfor -%}
+    {%- endif -%}
+{% endmacro %}
+
+{%- macro gen_class(cls) -%}
+    class {{ cls.name }} {{- parents_list(cls.parents) }}
+    {{- ' {' }}
+    {% filter indent(4, True) %}
+        {% for f in cls.fields -%}
+            {{ f.modifiers | gen_modifiers }} {{ f | typed }} {{ f | name }};
+        {% endfor %}
+        {{- cls.constructor.modifiers | gen_modifiers -}}
+        {{- "\n" -}}
+        {{- constructor_definition(cls.constructor, cls) }};
+        {% for method in cls.methods -%}
+            {{ method_declaration(method) -}};
+        {% endfor %}
+    {% endfilter %}
+    {{- '\n};' }}
+{%- endmacro -%}
+
+{%- macro gen_class_declaration(cls) -%}
+    class {{ cls.name }} {{- parents_list(cls.parents) }}{{ ';' }}
+{%- endmacro -%}
+
+{# ---------------------------- ENUMS ---------------------------- #}
+{%- macro gen_enum(enum) -%}
+class {{ enum|name }}{
+    string {{ enum|name|lower }};
+    {{- '\n' -}}
+    {{- "public:"}}
+    {{ enum|name }}(string {{ enum|name|lower }}_) : {{ enum|name|lower }}({{ enum|name|lower }}_){
+        for( auto test : {
+        {%- for memeber in enum.members -%}
+            {{ memeber.value }},
+        {%- endfor -%}})
+            if({{ enum|name|lower }}_ == test)
+                return;
+        throw EnumException("{{ enum|name }}", {{ enum|name|lower }}_);
+    }
+
+    string get(){ return {{ enum|name|lower }}; }
+
+    string toJSON(){
+        return '"'+{{enum|name|lower}}+'"';
+    }
+};{{"\n"}}
+{% endmacro -%}
+{# ---------------------------- MAIN ----------------------------- #}
+{% for e in enums -%}
+    {{- gen_enum(e) ~ '\n'}}
+{% endfor %}
+
+/* Classes decalarations */
+{% for cls in classes -%}
+    class {{ cls.name }};
+{% endfor %}
+
+/* Classes definitions */
+{% for cls in classes %}
+    {{- gen_class(cls) }}
+
+{% endfor %}
+
+/* Methods definitions */
+{% for cls in classes %}
+    {% if cls.methods|length > 0 %}{{- "\n//"+"-"*20 }} {{ cls.name }} {{ "-"*20 }}{% endif %}
+    {% for m in cls.methods %}
+        {{- '\n' ~ method_definition(m, cls.name)}}
+    {% endfor %}
+{% endfor %}

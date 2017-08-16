@@ -1,0 +1,139 @@
+{%- macro gen_block(block) -%}
+    {{- " {" }}
+    {%- filter indent(4, True) -%}
+        {% for line in block %}
+            {% if line is block %}
+                {{- gen_block(line) -}}
+            {% else %}
+                {{- "\n" ~ line }}
+            {%- endif %} {#- Strip to stick "{" at the end of current line -#}
+        {% endfor %}
+    {%- endfilter -%}
+    {{- "\n}" }}
+{%- endmacro -%}
+
+{#- Add annotations line by line. Should be called above the member declaration -#}
+{%- macro annotate(node) -%}
+    {%- for annotation in node.annotations %}
+        {{- annotation }}
+    {% endfor -%}
+{%- endmacro -%}
+
+{%- macro args_list(args) -%}
+    {%- for arg in args -%}
+        {{ arg | typed_arg }} {%- if not loop.last -%}, {% endif -%}
+    {% endfor -%}
+{%- endmacro -%}
+
+{%- macro initializers_list(cls) -%}
+     {%- if cls.constructor.arguments -%}
+     {{ " (" }}
+     {% filter indent(4, True) %}
+        {%- for arg in cls.constructor.arguments -%}
+            {{ arg | typed_arg }} {%- if not loop.last -%}{{ ",\n" }}{% endif %}
+        {%- endfor -%}
+     {% endfilter%}
+     {{ "\n)" }}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro parents_list(cls) -%}
+    {%- if cls.parents -%} {{ ": " }}
+        {%- for parent in cls.parents -%}
+            {{ parent|name }}{{- "(" -}}
+            {%- if parent|get_args -%}
+                {%- for arg in parent|get_args -%}
+                    {{ arg|name }} {%- if not loop.last -%}, {% endif %}
+                {%- endfor -%}
+            {%- endif -%}
+            {{- ")" -}}
+            {%- if not loop.last -%}, {% endif -%}
+        {% endfor -%}
+    {%- endif -%}
+{%- endmacro -%}
+
+{%- macro fields_list(cls) -%}
+    {%- filter indent(4, True) -%}
+        {%- for field in cls.fields -%}
+            {%- if field.annotations and field is not abstract -%}
+                {{ annotate(field) }}
+            {%- endif -%}
+            {% if field.overrides %} {{- "override " -}}
+            {% elif field.overridden %} {{- "open " -}} {% endif -%}
+            {%- if field in cls.constructor.arguments -%}
+                {{ field | typed_var }} = {{ field | name }}
+            {% elif field is abstract -%}
+                abstract {{ field | typed_var }}
+            {% elif field.default -%}
+                {{ field | typed_var }} = {{ field.default }}
+            {% else -%}
+                {{ field | typed_var }} = null
+            {% endif -%}
+        {%- endfor -%}
+     {%- endfilter -%}
+{%- endmacro -%}
+
+{%- macro methods_list(cls) -%}
+    {%- filter indent(4, True) -%}
+        {% for method in cls.methods %}
+            {% if method is abstract %} {{- "abstract " -}}
+            {% elif method.overrides %} {{- "override " -}}
+            {% elif method.overridden %} {{- "open " -}}
+            {% endif -%}
+            fun {{ method | name }}({{ args_list(method.arguments) }})
+            {{- method.returns | gen_return -}}
+            {% if method is not abstract %}{{ gen_block(method.body) }}{% endif %}
+            {#-
+                That seems strange but something strips one "\n" in if block,
+                so we need 2. (w/o if block we have trailing "\n" that i have
+                no idea how to strip.
+             -#}
+            {% if not loop.last %}{{ "\n\n" }}{% endif %}
+        {% endfor %}
+     {%- endfilter -%}
+{%- endmacro -%}
+
+{%- macro gen_class(cls) -%}
+    {%- if cls.annotations -%} {{ annotate(cls) }} {%- endif -%}
+    {% if cls is abstract %}
+        {{- "abstract " -}}
+    {% elif cls is parent or cls.overridden %}
+        {{- "open " -}}
+    {% endif -%} class {{ cls|name }}
+        {{- initializers_list(cls) }}
+        {{- parents_list(cls) }}
+    {{- " {\n" }}
+        {%- if cls.fields -%} {{- fields_list(cls) -}} {% endif %}
+        {#- That also such strange place that can't be stripped nicely -#}
+        {%- if cls.fields and cls.methods -%} {{- "\n\n" -}} {%- endif -%}
+        {%- if cls.methods -%} {{- methods_list(cls) -}} {% endif %}
+    {{- "\n}" }}
+{%- endmacro -%}
+
+{%- macro gen_enum(enum) -%}
+    enum class {{ enum|name }}(val value: String)
+    {{- " {\n" }}
+    {%- filter indent(4, True) %}
+        {% for memeber in enum.members -%}
+            {{ memeber|name }}({{ memeber.value }}),
+        {% endfor %}
+        {{- ';' -}}
+    {%- endfilter -%}
+    {{ '\n' }}
+    companion object {
+        @JvmStatic
+        private val map = {{ enum|name }}.values().associateBy({{ enum|name }}::value);
+        @JvmStatic
+        fun fromValue(value: String?) = map[value?.toUpperCase()]
+                                        ?: throw IllegalArgumentException("Unknown {{ enum|name }} value '$value'")
+    }
+    {{- "\n}" }}
+{%- endmacro -%}
+
+{%- for e in enums -%}
+    {{ gen_enum(e) ~ "\n"}}
+{% endfor %}
+
+{%- for cls in classes -%}
+    {{ gen_class(cls) ~ "\n"}}
+{% endfor %}

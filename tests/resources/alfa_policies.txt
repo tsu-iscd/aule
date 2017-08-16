@@ -1,0 +1,133 @@
+#begin
+namespace test {
+    export policy mainMedicalPolicy {
+        target clause user.id
+        apply denyoverrides
+        rule {
+            permit
+            target clause "admin" in user.roles and "admin" == user.id
+                clause entity.role == "doctor" and entity.age > 18
+        }
+        rule aa {
+            deny
+            target clause entity.age == 18
+        }
+        rule aaa {
+            deny
+            target clause user.id subset ["admin", "root"]
+
+        }
+        rule bb {
+            deny
+            target clause entity.role == "doctor" and entity.age > 18
+        }
+    }
+}
+#end
+
+#begin
+namespace com {
+    namespace example {
+        export policy mainPrinterPolicy {
+            target clause entity.type == "medicalRecord"
+            apply denyOverrides
+            rule a {
+                permit
+                target clause Attributes.role == "doctor"
+            }
+        }
+    }
+}
+#end
+
+#begin
+namespace example {
+    export policySet mainTopLevel {
+        target clause Attributes.resource == "medical"
+        apply denyOverrides
+        medicalPolicy1
+        policy printerPolicy {
+            target clause Attributes.resourceType == "medicalRecord"
+            apply denyOverrides
+            rule {
+                permit
+                target clause Attributes.role == "doctor"
+            }
+        }
+        medicalPolicy2
+        medicalPolicy3
+    }
+
+    policy printerPolicy100 {
+        target clause entity.type == "medicalRecord"
+        apply denyOverrides
+        rule a {
+            permit
+            target clause Attributes.role == "doctor"
+        }
+    }
+
+    policy printerPolicy200 {
+        target clause entity.type == "medicalRecord"
+        apply denyOverrides
+        rule a {
+            permit
+            target clause Attributes.role == "doctor"
+        }
+    }
+}
+#end
+
+#begin
+namespace aa {
+    export policy Main {
+        target clause action == "select" and a.b.c.d == 1
+        condition check_levels() == true
+        apply denyUnlessPermit
+        rule aaa{
+            permit
+            condition check_roles() == true and check_groups() == true
+
+        }
+    }
+}
+#end
+
+#begin
+namespace example {
+    export policy Main {
+        target clause action == "update"
+        apply denyUnlessPermit
+        rule r1 {
+            permit
+            target clause subject.level > entity.level
+        }
+    }
+}
+#end
+
+#begin
+namespace example {
+    export policy Main {
+      target clause action == "select"
+        apply denyUnlessPermit
+        rule r1 {
+            permit
+            target clause subject.level > entity.level
+        }
+    }
+}
+#end
+
+#begin
+namespace example {
+    export policy Main {
+      condition a()
+        apply denyUnlessPermit
+        rule r1 {
+            permit
+            target clause subject.level > entity.level
+        }
+    }
+}
+#end

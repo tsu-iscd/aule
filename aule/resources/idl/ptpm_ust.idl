@@ -1,0 +1,249 @@
+interface CollectionNode <: UstNode {
+    type: "CollectionNode";
+}
+interface ArgsNode <: CollectionNode {
+    type: "ArgsNode";
+}
+interface EntitiesNode <: CollectionNode {
+    type: "EntitiesNode";
+}
+interface EntityDeclaration <: UstNode {
+    type: "EntityDeclaration";
+}
+interface ParameterDeclaration <: UstNode {
+    type: "ParameterDeclaration";
+}
+interface StatementDeclaration <: EntityDeclaration {
+    type: "StatementDeclaration";
+}
+interface ConstructorDeclaration <: EntityDeclaration {
+    type: "ConstructorDeclaration";
+}
+interface FieldDeclaration <: EntityDeclaration {
+    type: "FieldDeclaration";
+}
+interface MethodDeclaration <: EntityDeclaration {
+    type: "MethodDeclaration";
+}
+interface Statement <: UstNode {
+    type: "Statement";
+}
+interface BlockStatement <: Statement {
+    type: "BlockStatement";
+}
+interface BreakStatement <: Statement {
+    type: "BreakStatement";
+}
+interface ContinueStatement <: Statement {
+    type: "ContinueStatement";
+}
+interface DoWhileStatement <: Statement {
+    type: "DoWhileStatement";
+}
+interface EmptyStatement <: Statement {
+    type: "EmptyStatement";
+}
+interface ExpressionStatement <: Statement {
+    type: "ExpressionStatement";
+}
+interface ForStatement <: Statement {
+    type: "ForStatement";
+}
+interface ForeachStatement <: Statement {
+    type: "ForeachStatement";
+}
+interface GotoStatement <: Statement {
+    type: "GotoStatement";
+}
+interface IfElseStatement <: Statement {
+    type: "IfElseStatement";
+}
+interface ReturnStatement <: Statement {
+    type: "ReturnStatement";
+}
+interface ThrowStatement <: Statement {
+    type: "ThrowStatement";
+}
+interface TypeDeclarationStatement <: Statement {
+    type: "TypeDeclarationStatement";
+}
+interface WhileStatement <: Statement {
+    type: "WhileStatement";
+}
+interface WithStatement <: Statement {
+    type: "WithStatement";
+}
+interface WrapperStatement <: Statement {
+    type: "WrapperStatement";
+}
+interface SwitchSection <: UstNode {
+    type: "SwitchSection";
+}
+interface SwitchStatement <: Statement {
+    type: "SwitchStatement";
+}
+interface CatchClause <: UstNode {
+    type: "CatchClause";
+}
+interface TryCatchStatement <: Statement {
+    type: "TryCatchStatement";
+}
+interface SpecificExpression <: Expression {
+    type: "SpecificExpression";
+}
+interface SpecificStatement <: Statement {
+    type: "SpecificStatement";
+}
+interface CSharpParameterDeclaration <: ParameterDeclaration {
+    type: "CSharpParameterDeclaration";
+}
+interface CheckedExpression <: SpecificExpression {
+    type: "CheckedExpression";
+}
+interface CheckedStatement <: SpecificStatement {
+    type: "CheckedStatement";
+}
+interface UnsafeStatement <: SpecificStatement {
+    type: "UnsafeStatement";
+}
+interface FixedStatement <: SpecificStatement {
+    type: "FixedStatement";
+}
+interface LockStatement <: SpecificStatement {
+    type: "LockStatement";
+}
+interface AsExpression <: SpecificExpression {
+    type: "AsExpression";
+}
+interface UstNode <: Node {
+    type: "UstNode";
+}
+interface NotImplementedNode <: UstNode {
+    type: "NotImplementedNode";
+}
+interface FileNode <: UstNode {
+    type: "FileNode";
+}
+interface NamespaceDeclaration <: UstNode {
+    type: "NamespaceDeclaration";
+}
+interface UsingDeclaration <: UstNode {
+    type: "UsingDeclaration";
+}
+interface TypeDeclaration <: EntityDeclaration {
+    type: "TypeDeclaration";
+}
+interface NodeType <: Enum_ {
+    type: "NodeType";
+}
+interface Expression <: UstNode {
+    type: "Expression";
+}
+interface AnonymousMethodExpression <: Expression {
+    type: "AnonymousMethodExpression";
+}
+interface ArrayCreationExpression <: Expression {
+    type: "ArrayCreationExpression";
+}
+interface AssignmentExpression <: Expression {
+    type: "AssignmentExpression";
+}
+interface BaseReferenceExpression <: Expression {
+    type: "BaseReferenceExpression";
+}
+interface BinaryOperatorExpression <: Expression {
+    type: "BinaryOperatorExpression";
+}
+interface CastExpression <: Expression {
+    type: "CastExpression";
+}
+interface ConditionalExpression <: Expression {
+    type: "ConditionalExpression";
+}
+interface IndexerExpression <: Expression {
+    type: "IndexerExpression";
+}
+interface InvocationExpression <: Expression {
+    type: "InvocationExpression";
+}
+interface MemberReferenceExpression <: Expression {
+    type: "MemberReferenceExpression";
+}
+interface MultichildExpression <: Expression {
+    type: "MultichildExpression";
+}
+interface ObjectCreateExpression <: Expression {
+    type: "ObjectCreateExpression";
+}
+interface UnaryOperatorExpression <: Expression {
+    type: "UnaryOperatorExpression";
+}
+interface VariableDeclarationExpression <: Expression {
+    type: "VariableDeclarationExpression";
+}
+interface WrapperExpression <: Expression {
+    type: "WrapperExpression";
+}
+interface Literal <: Token {
+    type: "Literal";
+}
+interface BinaryOperatorLiteral <: Literal {
+    type: "BinaryOperatorLiteral";
+}
+interface BooleanLiteral <: Literal {
+    type: "BooleanLiteral";
+}
+interface CommentLiteral <: Literal {
+    type: "CommentLiteral";
+}
+interface FloatLiteral <: Literal {
+    type: "FloatLiteral";
+}
+interface IntLiteral <: Literal {
+    type: "IntLiteral";
+}
+interface ModifierLiteral <: Literal {
+    type: "ModifierLiteral";
+}
+interface NullLiteral <: Literal {
+    type: "NullLiteral";
+}
+interface ParameterModifierLiteral <: Token {
+    type: "ParameterModifierLiteral";
+}
+interface StringLiteral <: Literal {
+    type: "StringLiteral";
+}
+interface TypeTypeLiteral <: Literal {
+    type: "TypeTypeLiteral";
+}
+interface UnaryOperatorLiteral <: Literal {
+    type: "UnaryOperatorLiteral";
+}
+interface Token <: Expression {
+    type: "Token";
+}
+interface BinaryOperator <: Enum_ {
+    type: "BinaryOperator";
+}
+interface IdToken <: Token {
+    type: "IdToken";
+}
+interface Modifier <: Enum_ {
+    type: "Modifier";
+}
+interface ParameterModifier <: Enum_ {
+    type: "ParameterModifier";
+}
+interface ThisReferenceToken <: Token {
+    type: "ThisReferenceToken";
+}
+interface TypeToken <: Token {
+    type: "TypeToken";
+}
+interface TypeType <: Enum_ {
+    type: "TypeType";
+}
+interface UnaryOperator <: Enum_ {
+    type: "UnaryOperator";
+}

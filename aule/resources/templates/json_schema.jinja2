@@ -1,0 +1,25 @@
+{%- macro gen_class(class_) -%}
+    class {{ class_.name }}({{ class_.parents | join(', ', attribute='name') }}):
+        {% filter  indent(4, True) -%}
+            {{- "type = jsl.fields.StringField()" }}
+            {% for f in class_.fields -%}
+                {{ f.name }} = {{ f | as_jsl_field }}
+            {% endfor %}
+        {% endfilter %}
+{%- endmacro -%}
+
+
+import jsl
+
+{% for cls in classes -%}
+    {{ gen_class(cls) }}
+
+    {# Hey that line ^ is necessary #}
+{% endfor -%}
+
+class {{ BASE_CLASS -}}(jsl.Document):
+    entities = jsl.ArrayField(jsl.OneOfField([
+    {% for cls in classes %}
+        jsl.DocumentField({{ cls.name }}, as_ref=True),
+    {% endfor %}
+    ]), required=True)

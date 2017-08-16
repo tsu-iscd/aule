@@ -1,0 +1,8 @@
+generated/resources/grammars
+grammars/*.pyc
+*.pyc
+*.class
+*.java
+.idea
+__pycache__
+.mypy_cache/

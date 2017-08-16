@@ -1,0 +1,482 @@
+#begin
+
+USE AdventureWorks2012;
+GO
+IF OBJECT_ID ('dbo.Table1', 'U') IS NOT NULL
+    DROP TABLE dbo.Table1;
+GO
+IF OBJECT_ID ('dbo.Table2', 'U') IS NOT NULL
+    DROP TABLE dbo.Table2;
+GO
+CREATE TABLE dbo.Table1
+    (ColA int NOT NULL, ColB decimal(10,3) NOT NULL);
+GO
+CREATE TABLE dbo.Table2
+    (ColA int NOT NULL PRIMARY KEY, ColB decimal(10,3) NOT NULL);
+GO
+INSERT INTO dbo.Table1 VALUES(1, 10.0), (1, 20.0);
+INSERT INTO dbo.Table2 VALUES(1, 0.0);
+GO
+UPDATE dbo.Table2
+SET dbo.Table2.ColB = dbo.Table2.ColB + dbo.Table1.ColB
+FROM dbo.Table2
+    INNER JOIN dbo.Table1
+    ON (dbo.Table2.ColA = dbo.Table1.ColA);
+GO
+SELECT ColA, ColB
+FROM dbo.Table2;
+
+USE tempdb;
+GO
+#end
+#begin
+-- UPDATE statement with CTE references that are correctly matched.
+DECLARE @x TABLE (ID int, Value int);
+DECLARE @y TABLE (ID int, Value int);
+INSERT @x VALUES (1, 10), (2, 20);
+INSERT @y VALUES (1, 100),(2, 200);
+
+WITH cte AS (SELECT * FROM @x)
+UPDATE x -- cte is referenced by the alias.
+SET Value = y.Value
+FROM cte AS x  -- cte is assigned an alias.
+INNER JOIN @y AS y ON y.ID = x.ID;
+SELECT * FROM @x;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using a simple UPDATE statement
+
+USE AdventureWorks2012;
+GO
+UPDATE Person.Address
+SET ModifiedDate = GETDATE();
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Updating multiple columns
+
+USE AdventureWorks2012;
+GO
+UPDATE Sales.SalesPerson
+SET Bonus = 6000, CommissionPct = .10, SalesQuota = NULL;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using the WHERE clause
+
+USE AdventureWorks2012;
+GO
+UPDATE Production.Product
+SET Color = N'Metallic Red'
+WHERE Name LIKE N'Road-250%' AND Color = N'Red';
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using the TOP clause
+
+USE AdventureWorks2012;
+GO
+UPDATE Production.Product
+SET Color = N'Metallic Red'
+WHERE Name LIKE N'Road-250%' AND Color = N'Red';
+GO
+
+UPDATE HumanResources.Employee
+SET VacationHours = VacationHours + 8
+FROM (SELECT TOP 10 BusinessEntityID FROM HumanResources.Employee
+     ORDER BY HireDate ASC) AS th
+WHERE HumanResources.Employee.BusinessEntityID = th.BusinessEntityID;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using the WITH common_table_expression clause
+
+USE AdventureWorks2012;
+GO
+WITH Parts(AssemblyID, ComponentID, PerAssemblyQty, EndDate, ComponentLevel) AS
+(
+    SELECT b.ProductAssemblyID, b.ComponentID, b.PerAssemblyQty,
+        b.EndDate, 0 AS ComponentLevel
+    FROM Production.BillOfMaterials AS b
+    WHERE b.ProductAssemblyID = 800
+          AND b.EndDate IS NULL
+    UNION ALL
+    SELECT bom.ProductAssemblyID, bom.ComponentID, p.PerAssemblyQty,
+        bom.EndDate, ComponentLevel + 1
+    FROM Production.BillOfMaterials AS bom
+        INNER JOIN Parts AS p
+        ON bom.ProductAssemblyID = p.ComponentID
+        AND bom.EndDate IS NULL
+)
+UPDATE Production.BillOfMaterials
+SET PerAssemblyQty = c.PerAssemblyQty * 2
+FROM Production.BillOfMaterials AS c
+JOIN Parts AS d ON c.ProductAssemblyID = d.AssemblyID
+WHERE d.ComponentLevel = 0;
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using the WHERE CURRENT OF clause
+
+USE AdventureWorks2012;
+GO
+DECLARE complex_cursor CURSOR FOR
+    SELECT a.BusinessEntityID
+    FROM HumanResources.EmployeePayHistory AS a
+    WHERE RateChangeDate <>
+         (SELECT MAX(RateChangeDate)
+          FROM HumanResources.EmployeePayHistory AS b
+          WHERE a.BusinessEntityID = b.BusinessEntityID) ;
+OPEN complex_cursor;
+FETCH FROM complex_cursor;
+UPDATE HumanResources.EmployeePayHistory
+SET PayFrequency = 2
+WHERE CURRENT OF complex_cursor;
+CLOSE complex_cursor;
+DEALLOCATE complex_cursor;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a computed value
+
+USE AdventureWorks2012 ;
+GO
+UPDATE Production.Product
+SET ListPrice = ListPrice * 2;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a compound operator
+
+USE AdventureWorks2012;
+GO
+DECLARE @NewPrice int = 10;
+UPDATE Production.Product
+SET ListPrice += @NewPrice
+WHERE Color = N'Red';
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a subquery in the SET clause
+
+USE AdventureWorks2012;
+GO
+UPDATE Sales.SalesPerson
+SET SalesYTD = SalesYTD +
+    (SELECT SUM(so.SubTotal)
+     FROM Sales.SalesOrderHeader AS so
+     WHERE so.OrderDate = (SELECT MAX(OrderDate)
+                           FROM Sales.SalesOrderHeader AS so2
+                           WHERE so2.SalesPersonID = so.SalesPersonID)
+     AND Sales.SalesPerson.BusinessEntityID = so.SalesPersonID
+     GROUP BY so.SalesPersonID);
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Updating rows using DEFAULT values
+
+USE AdventureWorks2012;
+GO
+UPDATE Production.Location
+SET CostRate = DEFAULT
+WHERE CostRate > 20.00;
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a view as the target object
+
+USE AdventureWorks2012;
+GO
+UPDATE Person.vStateProvinceCountryRegion
+SET CountryRegionName = 'United States of America'
+WHERE CountryRegionName = 'United States';
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a table alias as the target object
+
+USE AdventureWorks2012;
+GO
+UPDATE sr
+SET sr.Name += ' - tool malfunction'
+FROM Production.ScrapReason AS sr
+JOIN Production.WorkOrder AS wo
+     ON sr.ScrapReasonID = wo.ScrapReasonID
+     AND wo.ScrappedQty > 300;
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--  Specifying a table variable as the target object
+
+USE AdventureWorks2012;
+GO
+-- Create the table variable.
+DECLARE @MyTableVar table(
+    EmpID int NOT NULL,
+    NewVacationHours int,
+    ModifiedDate datetime);
+
+-- Populate the table variable with employee ID values from HumanResources.Employee.
+INSERT INTO @MyTableVar (EmpID)
+    SELECT BusinessEntityID FROM HumanResources.Employee;
+
+-- Update columns in the table variable.
+UPDATE @MyTableVar
+SET NewVacationHours = e.VacationHours + 20,
+    ModifiedDate = GETDATE()
+FROM HumanResources.Employee AS e
+WHERE e.BusinessEntityID = EmpID;
+
+-- Display the results of the UPDATE statement.
+SELECT EmpID, NewVacationHours, ModifiedDate FROM @MyTableVar
+ORDER BY EmpID;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using the UPDATE statement with information from another table
+
+USE AdventureWorks2012;
+GO
+UPDATE Sales.SalesPerson
+SET SalesYTD = SalesYTD + SubTotal
+FROM Sales.SalesPerson AS sp
+JOIN Sales.SalesOrderHeader AS so
+    ON sp.BusinessEntityID = so.SalesPersonID
+    AND so.OrderDate = (SELECT MAX(OrderDate)
+                        FROM Sales.SalesOrderHeader
+                        WHERE SalesPersonID = sp.BusinessEntityID);
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Updating data in a remote table by using a linked server
+
+USE master;
+GO
+-- Create a link to the remote data source.
+-- Specify a valid server name for @datasrc as 'server_name' or 'server_name\instance_name'.
+
+EXEC sp_addlinkedserver @server = N'MyLinkServer',
+    @srvproduct = N' ',
+    @provider = N'SQLNCLI10',
+    @datasrc = N'<server name>',
+    @catalog = N'AdventureWorks2012';
+GO
+USE AdventureWorks2012;
+GO
+-- Specify the remote data source using a four-part name
+-- in the form linked_server.catalog.schema.object.
+
+UPDATE MyLinkServer.AdventureWorks2012.HumanResources.Department
+SET GroupName = N'Public Relations'
+WHERE DepartmentID = 4;
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Updating data in a remote table by using the OPENQUERY function
+
+UPDATE OPENQUERY (MyLinkServer, 'SELECT GroupName FROM HumanResources.Department WHERE DepartmentID = 4')
+SET GroupName = 'Sales and Marketing';
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Updating data in a remote table by using the OPENDATASOURCE function
+
+UPDATE OPENQUERY (MyLinkServer, 'SELECT GroupName FROM HumanResources.Department WHERE DepartmentID = 4')
+SET GroupName = 'Sales and Marketing';
+
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using UPDATE with OPENROWSET to modify a varbinary(max) column
+
+USE AdventureWorks2012;
+GO
+UPDATE Production.ProductPhoto
+SET ThumbNailPhoto = (
+    SELECT *
+    FROM OPENROWSET(BULK 'c:\Tires.jpg', SINGLE_BLOB) AS x )
+WHERE ProductPhotoID = 1;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using UPDATE to modify FILESTREAM data
+
+UPDATE Archive.dbo.Records
+SET [Chart] = CAST('Xray 1' as varbinary(max))
+WHERE [SerialNumber] = 2;
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using a system data type
+
+UPDATE dbo.Cities
+SET Location = CONVERT(Point, '12.3:46.2')
+WHERE Name = 'Anchorage';
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Invoking a method
+
+UPDATE dbo.Cities
+SET Location.SetXY(23.5, 23.5)
+WHERE Name = 'Anchorage';
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Modifying the value of a property or data member
+
+UPDATE dbo.Cities
+SET Location.X = 23.5
+WHERE Name = 'Anchorage';
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a table hint
+
+USE AdventureWorks2012;
+GO
+UPDATE Production.Product
+WITH (TABLOCK)
+SET ListPrice = ListPrice * 1.10
+WHERE ProductNumber LIKE 'BK-%';
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Specifying a query hint
+
+USE AdventureWorks2012;
+GO
+CREATE PROCEDURE Production.uspProductUpdate
+@Product nvarchar(25)
+AS
+SET NOCOUNT ON;
+UPDATE Production.Product
+SET ListPrice = ListPrice * 1.10
+WHERE ProductNumber LIKE @Product
+OPTION (OPTIMIZE FOR (@Product = 'BK-%') );
+GO
+-- Execute the stored procedure
+EXEC Production.uspProductUpdate 'BK-%';
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using UPDATE with the OUTPUT clause
+
+USE AdventureWorks2012;
+GO
+DECLARE @MyTableVar table(
+    EmpID int NOT NULL,
+    OldVacationHours int,
+    NewVacationHours int,
+    ModifiedDate datetime);
+UPDATE TOP (10) HumanResources.Employee
+SET VacationHours = VacationHours * 1.25,
+    ModifiedDate = GETDATE()
+OUTPUT inserted.BusinessEntityID,
+       deleted.VacationHours,
+       inserted.VacationHours,
+       inserted.ModifiedDate
+INTO @MyTableVar;
+--Display the result set of the table variable.
+SELECT EmpID, OldVacationHours, NewVacationHours, ModifiedDate
+FROM @MyTableVar;
+GO
+--Display the result set of the table.
+SELECT TOP (10) BusinessEntityID, VacationHours, ModifiedDate
+FROM HumanResources.Employee;
+GO
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using UPDATE in a stored procedure
+
+USE AdventureWorks2012;
+GO
+CREATE PROCEDURE HumanResources.Update_VacationHours
+@NewHours smallint
+AS
+SET NOCOUNT ON;
+UPDATE HumanResources.Employee
+SET VacationHours =
+    ( CASE
+         WHEN SalariedFlag = 0 THEN VacationHours + @NewHours
+         ELSE @NewHours
+       END
+    )
+WHERE CurrentFlag = 1;
+GO
+
+EXEC HumanResources.Update_VacationHours 40;
+
+#end
+#begin
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-- Using UPDATE in a TRY CATCH Block
+
+USE AdventureWorks2012;
+GO
+BEGIN TRANSACTION;
+
+BEGIN TRY
+    -- Intentionally generate a constraint violation error.
+    UPDATE HumanResources.Department
+    SET Name = N'MyNewName'
+    WHERE DepartmentID BETWEEN 1 AND 2;
+END TRY
+BEGIN CATCH
+    SELECT
+         ERROR_NUMBER() AS ErrorNumber
+        ,ERROR_SEVERITY() AS ErrorSeverity
+        ,ERROR_STATE() AS ErrorState
+        ,ERROR_PROCEDURE() AS ErrorProcedure
+        ,ERROR_LINE() AS ErrorLine
+        ,ERROR_MESSAGE() AS ErrorMessage;
+
+    IF @@TRANCOUNT > 0
+        ROLLBACK TRANSACTION;
+END CATCH;
+
+IF @@TRANCOUNT > 0
+    COMMIT TRANSACTION;
+GO
+
+#end

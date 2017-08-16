@@ -1,0 +1,77 @@
+{%- macro gen_block(node, full_block) -%}
+    {%- if node.body | length > 0 -%}
+    {% if full_block %}{{ " {\n" }}{% endif %}
+    {%- filter indent(4, True) -%}
+        {% for line in node.body %}
+            {%- if line is block -%}
+                {{- gen_block(line, full_block=True) }}
+            {% else %}
+                {{- line }}
+            {%- endif %}
+        {% endfor %}
+    {%- endfilter -%}
+    {%- endif -%}
+    {% if full_block %}{{ "\n}" }}{% endif %}
+{%- endmacro -%}
+
+{%- macro gen_method(method, struct_name) -%}
+    func ({{ struct_name | self_reference }} {{ struct_name }}) {{ method.name }}(
+        {%- for arg in method.arguments -%}
+            {{  arg | typed }}  {%- if not loop.last -%}, {% endif -%}
+        {%- endfor -%}
+    )
+        {%- if method.returns -%}
+            {%- for ret in method.returns -%}
+                {{  ret | translate_type }}  {%- if not loop.last -%}, {% endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {{- gen_block(method.body, full_block=True) }}
+{%- endmacro -%}
+
+{%- macro gen_init(init, struct_name) -%}
+    func New{{ struct_name }}(
+        {%- for arg in init.arguments -%}
+            {{  arg | typed }}  {%- if not loop.last -%}, {% endif -%}
+        {%- endfor -%}
+    )
+        {%- if init.returns -%}
+            {%- for ret in init.returns -%}
+                {{  ret | translate_type }}  {%- if not loop.last -%}, {% endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {
+    {% filter indent(4, True) -%}
+        var res {{ struct_name }}
+        {% for arg in init.arguments -%}
+            res.{{arg.name}} = {{arg.name}}
+        {% endfor -%}
+        {{- gen_block(init.body) }}
+        {{- "return res" }}
+    {% endfilter %}
+    {{- '\n' }}
+    {{- '}' }}
+{%- endmacro -%}
+
+{%- macro gen_struct(cls) -%}
+    type {{ cls.name }} struct {
+        {% for parent in cls.parents -%}
+            {{ parent.name | indent(4, True) }}
+        {% endfor -%}
+        {% for f in cls.fields -%}
+            {{ f | typed | indent(4, True) }}
+        {% endfor %}
+    {{- '}' }}
+
+    {% filter trim %}
+        {{ gen_init(cls.constructor, cls.name) }}
+    {% endfilter %}
+    {{- '\n' }}
+
+    {% for method in cls.methods -%}
+        {{ gen_method(method, cls.name) }}
+    {% endfor %}
+{%- endmacro -%}
+
+{% for cls in classes -%}
+    {{ gen_struct(cls) }}
+{%- endfor %}

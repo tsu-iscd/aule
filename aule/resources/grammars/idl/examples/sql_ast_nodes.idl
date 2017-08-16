@@ -1,0 +1,117 @@
+#begin
+interface Node {
+}
+
+interface CommonStatement <: Node {
+
+}
+
+interface Statement <: CommonStatement {
+
+}
+
+interface ProcedureExtStatement <: CommonStatement {
+
+}
+
+interface Expression <: Node {
+
+}
+
+interface Predicate <: Expression {
+
+}
+
+interface Primitive <: Predicate {
+
+}
+
+interface ColumnName <: Primitive {
+    db: Identifier | null;
+    schema: Identifier | null;
+    table: Identifier | null;
+    column: Identifier | Star;
+}
+
+interface TableName <: Node {
+    db: Identifier | null;
+    schema: Identifier | null;
+    table: Identifier;
+}
+
+interface SchemaName <: Node {
+    db: Identifier | null;
+    schema: Identifier;
+}
+
+interface DbName <: Node {
+    db: Identifier;
+}
+
+interface UserName <: Node {
+    name: str;
+    host: str;
+}
+
+interface IndexName <: Node {
+    index: Identifier;
+}
+
+interface ViewName <: Node {
+    db: Identifier | null;
+    schema: Identifier | null;
+    view: Identifier;
+}
+
+interface TriggerName <: Node {
+    db: Identifier | null;
+    schema: Identifier | null;
+    trigger: Identifier;
+}
+
+interface EventName <: Node {
+    db: Identifier | null;
+    schema: Identifier | null;
+    event: Identifier;
+}
+
+interface ProcedureName <: Node {
+    db: Identifier | null;
+    schema: Identifier | null;
+    routine: Identifier;
+}
+
+interface UDFuncName <: Node {
+    db: Identifier | null;
+    schema: Identifier | null;
+    routine: Identifier;
+}
+
+interface TablespaceName <: Node {
+    tablespace: Identifier;
+}
+interface LogFileGroupName <: Node {
+    logFileGroup: Identifier;
+}
+interface ServerName <: Node {
+    server: Identifier;
+}
+interface ConvertedDataType <: Node {
+    dataType: ConvertedDataTypeVal;
+    firstDim: int | null;
+    secondDim: int | null;
+    charSet: CharSet | null;
+}
+
+enum ConvertedDataTypeVal {
+    BINARY = "BINARY";
+    NCHAR = "NCHAR";
+    CHAR = "CHAR";
+    DATE = "DATE";
+    DATETIME = "DATETIME";
+    TIME = "TIME";
+    DECIMAL = "DECIMAL";
+    SIGNED_INTEGER = "SIGNED INTEGER";
+    UNSIGNED_INTEGER = "UNSIGNED INTEGER";
+}
+#end

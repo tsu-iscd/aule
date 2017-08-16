@@ -1,0 +1,63 @@
+{%-  macro typed_variable(var) -%}
+    {{ var.name }} {% if var.is_pointer %}*{%  endif %}{{ var.type }}
+{%- endmacro -%}
+
+{%- macro gen_method(method, self_ref, struct_name) -%}
+    func ({{ self_ref }} {{ struct_name }}) {{ method.name }}(
+        {{- method.arguments | join(', ', attribute='name') -}}
+    )
+        {%- if method.returns -%}
+        ({{- method.returns | join(', ', attribute='name') -}})
+        {%- endif -%}
+    {
+    {% for line in method.body -%}
+        {{line | indent(4, True)}}
+    {% endfor %}
+    {{- '}' }}
+{%- endmacro -%}
+
+{%- macro gen_init(init, struct_name) -%}
+    func {{ init.name }}(
+        {{- init.arguments | join(', ', attribute='name') -}}
+    )
+        {%- if init.returns -%}
+            ({{- init.returns | join(', ', attribute='name') -}})
+        {%- endif -%}
+    {
+    {% filter indent(4, True) -%}
+        var res {{ struct_name }}
+        {% for arg in init.arguments -%}
+            res.{{arg.name}} = {{arg.name}}
+        {% endfor -%}
+        {% for line in init.body -%}
+            {{line}}
+        {% endfor -%}
+        return res
+    {% endfilter %}
+    {{- '\n' }}
+    {{- '}' }}
+{%- endmacro -%}
+
+{%- macro gen_struct(struct) -%}
+    type {{ struct.name }} struct {
+        {% for parent in struct.parents -%}
+            {{ parent.name | indent(4, True) }}
+        {% endfor -%}
+        {% for f in struct.fields -%}
+            {{ typed_variable(f) | indent(4, True) }}
+        {% endfor %}
+    {{- '}' }}
+
+    {% filter trim %}
+        {{ gen_init(struct.constructor, struct.name) }}
+    {% endfilter %}
+    {{- '\n' }}
+
+    {% for method in struct.methods -%}
+        {{ gen_method(method, struct.self_reference, struct.name) }}
+    {% endfor %}
+{%- endmacro -%}
+
+{% for s in structs -%}
+    {{ gen_struct(s) }}
+{%- endfor %}

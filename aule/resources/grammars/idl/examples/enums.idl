@@ -1,0 +1,16 @@
+#begin
+enum QuantifierType {
+    ALL = "ALL";
+    ANY = "ANY";
+    SOME = "SOME";
+}
+#end
+#begin
+enum foo {
+    a = "A";
+}
+enum bar {
+    b = "B";
+    c = "C";
+}
+#end

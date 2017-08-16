@@ -1,0 +1,4 @@
+SELECT 1
+SELECT 4
+SELECT * from foo
+select a,b from c

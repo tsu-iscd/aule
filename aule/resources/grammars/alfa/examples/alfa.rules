@@ -1,0 +1,206 @@
+#begin
+namespace corp {
+    policy medicalPolicy {
+        target clause Attributes.resourceType == "medicalRecord"
+        apply denyOverrides
+        rule {
+            permit
+            target clause Attributes.role == "doctor"
+        }
+    }
+}
+#end
+
+#begin
+namespace corp {
+    policySet topLevel {
+        target clause Attributes.resource == "medical"
+        apply denyOverrides
+        medicalPolicy
+        policy printerPolicy {
+            target clause Attributes.resourceType == "medicalRecord"
+            apply denyOverrides
+            rule {
+                permit
+                target clause Attributes.role == "doctor"
+           }
+        }
+
+    }
+}
+#end
+
+#begin
+namespace corp {
+    policySet topLevel {
+        target clause Attributes.resource == "medical"
+        apply denyOverrides
+        medicalPolicy
+        policy printerPolicy {
+            target clause Attributes.resourceType == "medicalRecord"
+            apply denyOverrides
+            rule {
+                permit
+                target clause Attributes.role == "doctor"
+           }
+        }
+
+        policySet bottomLevel {
+            target clause Attributes.resource == "medical"
+            apply denyOverrides
+            medicalPolicy
+            policy printerPolicy {
+                target clause Attributes.resourceType == "medicalRecord"
+                apply denyOverrides
+                rule {
+                    permit
+                    target clause Attributes.role == "doctor"
+                }
+            }
+
+        }
+
+        policySet newBottomLevel {
+            condition a()
+            apply denyOverrides
+            medicalPolicy
+            policy printerPolicy {
+                condition b()
+                apply denyOverrides
+                rule {
+                    permit
+                    condition c()
+                }
+            }
+
+        }
+
+    }
+}
+#end
+
+#begin
+namespace corp {
+    policy medicalPolicy {
+        target clause Attributes.resourceType == "medicalRecord"
+        apply denyOverrides
+        rule {
+            permit
+            target clause Attributes.role == "doctor"
+        }
+    }
+}
+#end
+
+#begin
+namespace com {
+    namespace corp { 
+        export policy topLevel {
+            target clause Attributes.resource == "medical"
+            apply denyOverrides
+            rule {
+                permit
+                target clause Attributes.role == "doctor"
+            }
+        }
+    }    
+}    
+#end
+
+#begin
+namespace com {
+    namespace corp { 
+        export policy topLevel {
+            target clause Attributes.resource == "medical"
+            apply denyOverrides
+            rule {
+                permit
+                target clause Attributes.role == "doctor"
+            }
+            on permit {
+                obligation checkroles
+            }
+            on deny {
+                advice log
+            }
+        }
+    }    
+}    
+#end
+
+#begin
+namespace com {
+    namespace corp {
+        export policy topLevel {
+            target clause Attributes.resource == "medical"
+            apply denyOverrides
+            rule {
+                permit
+                condition checkroles() == true
+            }
+        }
+    }
+}
+#end
+
+#begin
+namespace com {
+    namespace corp {
+        export policy topLevel {
+            condition a()
+            apply denyOverrides
+            rule {
+                permit
+                condition checkroles() == true
+            }
+        }
+    }
+}
+#end
+
+#begin
+namespace com {
+    namespace corp {
+        export policy topLevel {
+            condition a()
+            apply denyOverrides
+            rule {
+                permit
+                target clause any user.roles in ["admin", "guest"]
+            }
+        }
+    }
+}
+#end
+
+#begin
+namespace com {
+    namespace corp {
+        export policy topLevel {
+            target clause Attributes.resource == "medical"
+                   clause Attributes.resource == "financial"
+                   clause Attributes.resource == "private"
+            apply denyOverrides
+            rule {
+                permit
+                target clause any user.roles in ["admin", "guest"]
+            }
+        }
+    }
+}
+#end
+
+#begin
+namespace com {
+    namespace corp {
+        export policy topLevel {
+            target clause Attributes.resource == "medical"
+            apply denyOverrides
+            rule {
+                permit
+                condition call() == session.user.id
+            }
+        }
+    }
+}
+#end
