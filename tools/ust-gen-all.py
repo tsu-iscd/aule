@@ -133,3 +133,9 @@ if __name__ == "__main__":
     print(kotlingen.generate())
     print(kotlingen.generate_listener())
     print(kotlingen.generate_visitor())
+
+    print("*" * 30 + "JavaIDL" + "*" * 30)
+    javagen = GeneratorFactory.create(
+        language=Language.javaIDL
+    ).use_tree(program)
+    print(javagen.generate())

@@ -8,3 +8,4 @@ from .lua import Generator as LuaGenerator
 from .ecmascript import Generator as ECMAScriptGenerator
 from .kotlin import Generator as KotlinGenerator
 from .kotlin_idl import Generator as KotlinIDLGenerator
+from .java_idl import Generator as JavaIDLGenerator

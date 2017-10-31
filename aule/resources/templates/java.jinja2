@@ -1,0 +1,74 @@
+{%- macro gen_block(node, full_block) -%}
+    {% if full_block %}{{- "{\n" }}{% endif %}
+    {%- if node.body | length > 0 -%}
+    {%- filter indent(4, True) -%}
+        {% for line in node.body %}
+            {%- if line is block -%}
+                {{- gen_block(line, full_block=True) }}
+            {% else %}
+                {{- line }}
+            {%- endif %}
+        {% endfor %}
+    {%- endfilter -%}
+    {%- endif -%}
+    {% if full_block %}{{ "\n}" }}{% endif %}
+{%- endmacro -%}
+
+
+
+{%- macro gen_method(method) -%}
+    No implementation for method
+{%- endmacro -%}
+
+
+
+{%- macro gen_constructor(constructor, class_) -%}
+    {{ 'public '}} {{- class_.name }}(
+    {%- for arg in constructor.arguments -%}
+        {{  arg | typed }}  {%- if not loop.last -%}, {% endif -%}
+    {%- endfor -%}
+    )
+    {{- ' {' }}
+    {% filter indent(4, True) %}
+        {%- for field in class_.fields -%}
+            this.{{ field.name }} = {{ field.name ~ '\n'}}
+        {%- endfor -%}
+    {% endfilter%}
+    {{- ' \n}' }}
+{%- endmacro -%}
+
+
+{%- macro gen_field(field) -%}
+     {{ field.modifiers | gen_modifiers }}{{ field | typed }};
+{%- endmacro -%}
+
+
+{%- macro gen_parents (class_) -%}
+    {% if class_.parents|length > 1 -%}
+        {% raise 'Only one parent class can be used in Java.' %}
+    {% elif class_.parents|length == 1 %}
+        {{- 'extends' }}
+        {%- set comma = joiner(",") -%}
+        {% for parent in class_.parents %}{{ comma() }} {{ parent }}{% endfor -%}
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro gen_class(class_) -%}
+    public static class {{ class_.name }} {{ gen_parents(class_)}}  {{- ' {' }}
+    {{- '\n' }}
+    {% filter  indent(4, True) -%}
+        {{ gen_constructor(class_.constructor, class_) ~ '\n' }}
+        {% for field in class_.fields -%}
+            {{ gen_field(field) ~ '\n'}}
+        {% endfor %}
+        {% for method in class_.methods -%}
+            {{ gen_method(method) ~ '\n'}}
+        {% endfor %}
+    {% endfilter %}
+    {{- '\n}' }}
+{%- endmacro -%}
+
+
+{% for cls in classes -%}
+    {{ gen_class(cls) ~ '\n'}}
+{% endfor %}

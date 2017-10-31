@@ -10,6 +10,7 @@ from aule.codegen.generators import LuaGenerator
 from aule.codegen.generators import ECMAScriptGenerator
 from aule.codegen.generators import KotlinGenerator
 from aule.codegen.generators import KotlinIDLGenerator
+from aule.codegen.generators import JavaIDLGenerator
 
 
 class Language(enum.Enum):
@@ -23,6 +24,7 @@ class Language(enum.Enum):
     ecmascript = "ecmascript"
     kotlin = "kotlin"
     kotlinIDL = "kotlinIDL"
+    javaIDL = "javaIDL"
 
 
 class GeneratorFactory(object):
@@ -37,6 +39,7 @@ class GeneratorFactory(object):
         Language.ecmascript: ECMAScriptGenerator,
         Language.kotlin: KotlinGenerator,
         Language.kotlinIDL: KotlinIDLGenerator,
+        Language.javaIDL: JavaIDLGenerator
     }
 
     @classmethod
