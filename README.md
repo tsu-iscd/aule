@@ -1,5 +1,7 @@
 # Aule
 
+Aule is a set of tools designed to work with language applications.
+
 ## Getting started
 
 ### Fast Installation
