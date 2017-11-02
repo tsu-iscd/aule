@@ -228,7 +228,10 @@ createTrigger
       triggerTime=(BEFORE | AFTER)
       triggerEvent=(INSERT | UPDATE | DELETE)
       ON tableName FOR EACH ROW 
-      ((FOLLOWS | PRECEDES) otherTrigger=fullId)?
+      (
+        triggerPlace=(FOLLOWS | PRECEDES) 
+        otherTrigger=fullId
+      )?
       routineBody
     ;
 
