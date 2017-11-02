@@ -5,6 +5,8 @@ class Generator(BaseGenerator):
 
     TEMPLATE_FILE = "java.jinja2"
 
+    DECODER_TEMPLATE_FILE = "javaDecoder.jinja2"
+
     BAD_WORDS = [
         "abstract",   "continue",    "for",            "new",          "switch",
         "assert",     "default",     "goto",           "package",      "synchronized",
@@ -24,4 +26,18 @@ class Generator(BaseGenerator):
             gen_modifiers=helpers.gen_modifiers,
             typed=helpers.typed,
             translate_type=helpers.translate_type,
+            gen_block_for_cls=helpers.gen_block_for_cls,
+            gen_class_function = helpers.gen_class_function,
+            gen_property=helpers.gen_property
+        )
+
+    def use_tree(self, tree, mutableAST=False):
+        super(Generator, self).use_tree(tree)
+
+    def generate_decoder(self):
+        return self.env.get_template(self.DECODER_TEMPLATE_FILE).render(
+            classes=self.classes,
+            functions=self.functions,
+            variables=self.vars,
+            enums=self.enums,
         )

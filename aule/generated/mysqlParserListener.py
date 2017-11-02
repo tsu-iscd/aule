@@ -710,12 +710,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#tableOptionEncription.
-    def enterTableOptionEncription(self, ctx:mysqlParser.TableOptionEncriptionContext):
+    # Enter a parse tree produced by mysqlParser#tableOptionEncryption.
+    def enterTableOptionEncryption(self, ctx:mysqlParser.TableOptionEncryptionContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#tableOptionEncription.
-    def exitTableOptionEncription(self, ctx:mysqlParser.TableOptionEncriptionContext):
+    # Exit a parse tree produced by mysqlParser#tableOptionEncryption.
+    def exitTableOptionEncryption(self, ctx:mysqlParser.TableOptionEncryptionContext):
         pass
 
 
@@ -872,12 +872,12 @@ class mysqlParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by mysqlParser#partionFunctionRange.
-    def enterPartionFunctionRange(self, ctx:mysqlParser.PartionFunctionRangeContext):
+    # Enter a parse tree produced by mysqlParser#partitionFunctionRange.
+    def enterPartitionFunctionRange(self, ctx:mysqlParser.PartitionFunctionRangeContext):
         pass
 
-    # Exit a parse tree produced by mysqlParser#partionFunctionRange.
-    def exitPartionFunctionRange(self, ctx:mysqlParser.PartionFunctionRangeContext):
+    # Exit a parse tree produced by mysqlParser#partitionFunctionRange.
+    def exitPartitionFunctionRange(self, ctx:mysqlParser.PartitionFunctionRangeContext):
         pass
 
 
@@ -1157,6 +1157,15 @@ class mysqlParserListener(ParseTreeListener):
 
     # Exit a parse tree produced by mysqlParser#alterByAddPrimaryKey.
     def exitAlterByAddPrimaryKey(self, ctx:mysqlParser.AlterByAddPrimaryKeyContext):
+        pass
+
+
+    # Enter a parse tree produced by mysqlParser#alterByAddUniqueKey.
+    def enterAlterByAddUniqueKey(self, ctx:mysqlParser.AlterByAddUniqueKeyContext):
+        pass
+
+    # Exit a parse tree produced by mysqlParser#alterByAddUniqueKey.
+    def exitAlterByAddUniqueKey(self, ctx:mysqlParser.AlterByAddUniqueKeyContext):
         pass
 
 

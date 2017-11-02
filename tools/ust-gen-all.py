@@ -139,3 +139,6 @@ if __name__ == "__main__":
         language=Language.javaIDL
     ).use_tree(program)
     print(javagen.generate())
+
+    print("*" * 30 + "JavaIDL DECODER" + "*" * 30)
+    print(javagen.generate_decoder())
