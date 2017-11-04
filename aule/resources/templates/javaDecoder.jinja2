@@ -12,9 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-* При переопределении абстрактных методов createClass(JsonElement je) предлагается воспользоваться стандартным
-* create(JsonElement je, Type type), передав в него тип, соответствующий классу, которым вы переопределили Class.
-* Также вы можете восстановить из je объект сами, если считаете нужным
+* To override this class, you must override every createClass(JsonElement je) method.
+* The easiest way to do it is to call create(JsonElement je, Type class) method
+* example:
+* @Override
+* public Object createClass(JsonElement je){
+*   return create(je, MyClass.class);
+* }
+* With MyClass you must override Class.
+*
 */
 public abstract class Decoder{
 
@@ -24,7 +30,7 @@ public abstract class Decoder{
         gson = new Gson();
     }
 
-    public List<Object> fromJson(String jsonString){
+    public Map<String, Object> fromJson(String jsonString) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         JsonArray jsonArray = new JsonParser()
                 .parse(jsonString)
                 .getAsJsonObject()
