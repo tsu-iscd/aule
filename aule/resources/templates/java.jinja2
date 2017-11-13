@@ -15,29 +15,6 @@
 {%- endmacro -%}
 
 
-
-{%- macro gen_method(method) -%}
-    //No implementation for method
-{%- endmacro -%}
-
-
-
-{%- macro gen_constructor(constructor, class_) -%}
-    {{ 'public '}} {{- class_.name }}(
-    {%- for arg in constructor.arguments -%}
-        {{  arg | typed }}  {%- if not loop.last -%}, {% endif -%}
-    {%- endfor -%}
-    )
-    {{- ' {' }}
-    {% filter indent(4, True) %}
-        {%- for field in class_.fields -%}
-            this.{{ field.name }} = {{ field.name ~ '\n'}}
-        {%- endfor -%}
-    {% endfilter%}
-    {{- ' \n}' }}
-{%- endmacro -%}
-
-
 {%- macro gen_field(field) -%}
      {{ field.modifiers | gen_modifiers }}{{ field | typed }}{{ field.modifiers | gen_property }};
 {%- endmacro -%}
@@ -47,9 +24,7 @@
     {% if class_.parents|length > 1 -%}
         {% raise 'Only one parent class can be used in Java.' %}
     {% elif class_.parents|length == 1 %}
-        {{- 'extends' }}
-        {%- set comma = joiner(",") -%}
-        {% for parent in class_.parents %}{{ comma() }} {{ parent }}{% endfor -%}
+        {{- 'extends ' ~ class_.parents[0] -}}
     {% endif %}
 {%- endmacro -%}
 
@@ -59,9 +34,6 @@
     {% filter  indent(4, True) -%}
         {% for field in class_.fields -%}
             {{ gen_field(field) ~ '\n'}}
-        {% endfor %}
-        {% for method in class_.methods -%}
-            {{ gen_method(method) ~ '\n'}}
         {% endfor %}
     {% endfilter %}
     {{- '\n}' }}

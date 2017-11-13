@@ -1,15 +1,12 @@
 {%- macro generate(classes) -%}
 
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
 * To override this class, you must override every createClass(JsonElement je) method.
@@ -30,27 +27,45 @@ public abstract class Decoder{
         gson = new Gson();
     }
 
-    public Map<String, Object> fromJson(String jsonString) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        JsonArray jsonArray = new JsonParser()
-                .parse(jsonString)
-                .getAsJsonObject()
-                .get("entities")
-                .getAsJsonArray();
-        Map<String, Object> objects = new HashMap<String, Object>();
-        for(JsonElement element : jsonArray){
-            String str = element.getAsJsonObject().get("type").getAsString();
-            {% filter  indent(12, True) -%}
-            Object currentObject = null;
-            {% for cls in classes -%}
-                {{ cls.name | gen_block_for_cls ~ '\n'}}
-            {% endfor %}
-            {% endfilter %}
-
-            String id = (String) currentObject.getClass().getMethod("id").invoke(currentObject);
-            objects.put(id, currentObject);
+    public Map fromJson(String jsonString) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Map<String, Object> result = new HashMap<String, Object>();
+        JsonObject je = new JsonParser().parse(jsonString).getAsJsonObject();
+        Set<String> keys = je.getAsJsonObject().keySet();
+        for(String key : keys){
+            JsonElement jsonElement = je.get(key);
+            Object obj;
+            if(jsonElement.isJsonArray()){
+                obj = readArray(jsonElement.getAsJsonArray());
+            } else {
+                obj = readObject(jsonElement);
+            }
+            result.put(key,obj);
         }
-        return objects;
+        return result;
     }
+
+    private Object readArray(JsonArray array) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+       List<Object> res = new ArrayList<Object>();
+        for(JsonElement element : array){
+            res.add(readObject(element));
+        }
+        return res;
+    }
+
+
+    @Nullable
+    private Object readObject(JsonElement element){
+        String str = element.getAsJsonObject().get("type").getAsString();
+        Object currentObject = null;
+        {% filter  indent(8, True) -%}
+        {% for cls in classes -%}
+            {{ cls.name | gen_block_for_cls ~ '\n'}}
+        {% endfor %}
+        {% endfilter %}
+
+        return currentObject;
+    }
+
 
     {% filter  indent(4, True) -%}
     {% for cls in classes -%}

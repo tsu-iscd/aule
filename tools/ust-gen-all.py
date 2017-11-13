@@ -137,7 +137,8 @@ if __name__ == "__main__":
     print("*" * 30 + "JavaIDL" + "*" * 30)
     javagen = GeneratorFactory.create(
         language=Language.javaIDL
-    ).use_tree(program)
+    )
+    javagen.use_tree(program)
     print(javagen.generate())
 
     print("*" * 30 + "JavaIDL DECODER" + "*" * 30)
