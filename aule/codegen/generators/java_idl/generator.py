@@ -26,8 +26,6 @@ class Generator(BaseGenerator):
             gen_modifiers=helpers.gen_modifiers,
             typed=helpers.typed,
             translate_type=helpers.translate_type,
-            gen_block_for_cls=helpers.gen_block_for_cls,
-            gen_class_function = helpers.gen_class_function,
             gen_property=helpers.gen_property
         )
 

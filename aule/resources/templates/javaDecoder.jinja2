@@ -1,3 +1,17 @@
+{%- macro gen_class_creation(class_) -%}
+    {{ 'if(str.equals("' }}{{ class_.name.name.lower() }}{{  '")){'   }}
+        {% filter  indent(4, True) -%}
+        {{ 'currentObject = create' }}{{class_.name}}{{ '(element);' }}
+        {% endfilter %}
+    {{ '\n}' }}
+{%- endmacro -%}
+
+
+{%- macro gen_func(class_) -%}
+    {{ 'public abstract Object create' }}{{class_.name}}{{'(JsonElement je);'}}
+{%- endmacro -%}
+
+
 {%- macro generate(classes) -%}
 
 
@@ -57,9 +71,10 @@ public abstract class Decoder{
     private Object readObject(JsonElement element){
         String str = element.getAsJsonObject().get("type").getAsString();
         Object currentObject = null;
+
         {% filter  indent(8, True) -%}
         {% for cls in classes -%}
-            {{ cls.name | gen_block_for_cls ~ '\n'}}
+            {{  gen_class_creation(cls) ~ '\n'}}
         {% endfor %}
         {% endfilter %}
 
@@ -69,7 +84,7 @@ public abstract class Decoder{
 
     {% filter  indent(4, True) -%}
     {% for cls in classes -%}
-        {{ cls.name | gen_class_function ~ '\n' }}
+        {{ gen_func(cls) ~ '\n' }}
     {% endfor %}
     {% endfilter %}
 

@@ -55,12 +55,6 @@ def gen_modifiers(modifiers):
         res.append('const')
     return ' '.join(res)
 
-def gen_block_for_cls(classname):
-    return 'if(str.equals("' + classname.name.lower() +'")){\n\tcurrentObject = create' + classname.name + '(element);\n}'
-
-
-def gen_class_function(classname):
-    return 'public abstract Object create' + classname.name + '(JsonElement je);'
 
 
 
