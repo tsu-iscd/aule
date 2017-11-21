@@ -49,15 +49,11 @@ class Generator(BaseGenerator):
         self.has_abstract = None
 
     def use_tree(self, tree, mutableAST=False):
-        super(Generator, self).use_tree(tree)
+        the_tree = tree if mutableAST else deepcopy(tree)
+        super(Generator, self).use_tree(the_tree)
         self.classes_reference = ust.helpers.ClassesReference(self.classes)
         self.has_abstract = False
         for i, cls in enumerate(self.classes):
-            # Copy class if necessary cos we are going to modify them
-            if not mutableAST:
-                cls_copy = deepcopy(cls)
-                self.classes[i] = cls_copy
-                cls = cls_copy
             # Check for abstractness
             if ust.helpers.is_abstract(cls):
                 if not self.classes_reference.is_inherited_from(cls, self.ABSTRACT_PARENT):
