@@ -37,28 +37,28 @@ class Node(Pickler):
     
     __mangled__ = {}
 
-class Statement(Node,Pickler):
+class Statement(Node):
     def __init__(self, *args, **kwargs):
         super(Statement, self).__init__(*args, **kwargs)    
         pass
     
     __mangled__ = {}
 
-class Expression(Node,Pickler):
+class Expression(Node):
     def __init__(self, *args, **kwargs):
         super(Expression, self).__init__(*args, **kwargs)    
         pass
     
     __mangled__ = {}
 
-class Script(Statement,Pickler):
+class Script(Statement):
     def __init__(self, body=None, *args, **kwargs):
         super(Script, self).__init__(*args, **kwargs)
         self.body = body    
     
     __mangled__ = {}
 
-class NameSpaceDeclaration(Statement,Pickler):
+class NameSpaceDeclaration(Statement):
     def __init__(self, name=None, body=None, *args, **kwargs):
         super(NameSpaceDeclaration, self).__init__(*args, **kwargs)
         self.name = name
@@ -66,7 +66,7 @@ class NameSpaceDeclaration(Statement,Pickler):
     
     __mangled__ = {}
 
-class PolicySetDeclaration(Statement,Pickler):
+class PolicySetDeclaration(Statement):
     def __init__(self, name=None, algorithm=None, targetStatement=None, conditionStatement=None, references=None, policies=None, policysets=None, events=None, modifiers=None, *args, **kwargs):
         super(PolicySetDeclaration, self).__init__(*args, **kwargs)
         self.name = name
@@ -81,7 +81,7 @@ class PolicySetDeclaration(Statement,Pickler):
     
     __mangled__ = {}
 
-class PolicyDeclaration(Statement,Pickler):
+class PolicyDeclaration(Statement):
     def __init__(self, name=None, algorithm=None, targetStatement=None, conditionStatement=None, rules=None, events=None, modifiers=None, *args, **kwargs):
         super(PolicyDeclaration, self).__init__(*args, **kwargs)
         self.name = name
@@ -94,7 +94,7 @@ class PolicyDeclaration(Statement,Pickler):
     
     __mangled__ = {}
 
-class RuleDeclaration(Statement,Pickler):
+class RuleDeclaration(Statement):
     def __init__(self, name=None, effect=None, targetStatement=None, conditionStatement=None, events=None, *args, **kwargs):
         super(RuleDeclaration, self).__init__(*args, **kwargs)
         self.name = name
@@ -105,7 +105,7 @@ class RuleDeclaration(Statement,Pickler):
     
     __mangled__ = {}
 
-class Event(Statement,Pickler):
+class Event(Statement):
     def __init__(self, eventType=None, body=None, *args, **kwargs):
         super(Event, self).__init__(*args, **kwargs)
         self.eventType = eventType
@@ -113,56 +113,56 @@ class Event(Statement,Pickler):
     
     __mangled__ = {}
 
-class Obligation(Statement,Pickler):
+class Obligation(Statement):
     def __init__(self, name=None, *args, **kwargs):
         super(Obligation, self).__init__(*args, **kwargs)
         self.name = name    
     
     __mangled__ = {}
 
-class Advice(Statement,Pickler):
+class Advice(Statement):
     def __init__(self, name=None, *args, **kwargs):
         super(Advice, self).__init__(*args, **kwargs)
         self.name = name    
     
     __mangled__ = {}
 
-class ApplyStatement(Statement,Pickler):
+class ApplyStatement(Statement):
     def __init__(self, value=None, *args, **kwargs):
         super(ApplyStatement, self).__init__(*args, **kwargs)
         self.value = value    
     
     __mangled__ = {}
 
-class EffectStatement(Statement,Pickler):
+class EffectStatement(Statement):
     def __init__(self, value=None, *args, **kwargs):
         super(EffectStatement, self).__init__(*args, **kwargs)
         self.value = value    
     
     __mangled__ = {}
 
-class TargetStatement(Statement,Pickler):
+class TargetStatement(Statement):
     def __init__(self, clauses=None, *args, **kwargs):
         super(TargetStatement, self).__init__(*args, **kwargs)
         self.clauses = clauses    
     
     __mangled__ = {}
 
-class ConditionStatement(Statement,Pickler):
+class ConditionStatement(Statement):
     def __init__(self, statement=None, *args, **kwargs):
         super(ConditionStatement, self).__init__(*args, **kwargs)
         self.statement = statement    
     
     __mangled__ = {}
 
-class TargetClause(Statement,Pickler):
+class TargetClause(Statement):
     def __init__(self, statement=None, *args, **kwargs):
         super(TargetClause, self).__init__(*args, **kwargs)
         self.statement = statement    
     
     __mangled__ = {}
 
-class AttributeAccessExpression(Expression,Pickler):
+class AttributeAccessExpression(Expression):
     def __init__(self, expression=None, name=None, *args, **kwargs):
         super(AttributeAccessExpression, self).__init__(*args, **kwargs)
         self.expression = expression
@@ -170,7 +170,7 @@ class AttributeAccessExpression(Expression,Pickler):
     
     __mangled__ = {}
 
-class CallExpression(Expression,Pickler):
+class CallExpression(Expression):
     def __init__(self, callee=None, arguments=None, *args, **kwargs):
         super(CallExpression, self).__init__(*args, **kwargs)
         self.callee = callee
@@ -178,7 +178,7 @@ class CallExpression(Expression,Pickler):
     
     __mangled__ = {}
 
-class AnyExpression(Expression,Pickler):
+class AnyExpression(Expression):
     def __init__(self, left=None, right=None, *args, **kwargs):
         super(AnyExpression, self).__init__(*args, **kwargs)
         self.left = left
@@ -186,42 +186,42 @@ class AnyExpression(Expression,Pickler):
     
     __mangled__ = {}
 
-class ArrayExpression(Expression,Pickler):
+class ArrayExpression(Expression):
     def __init__(self, elements=None, *args, **kwargs):
         super(ArrayExpression, self).__init__(*args, **kwargs)
         self.elements = elements    
     
     __mangled__ = {}
 
-class Identifier(Expression,Pickler):
+class Identifier(Expression):
     def __init__(self, name=None, *args, **kwargs):
         super(Identifier, self).__init__(*args, **kwargs)
         self.name = name    
     
     __mangled__ = {}
 
-class LiteralString(Expression,Pickler):
+class LiteralString(Expression):
     def __init__(self, value=None, *args, **kwargs):
         super(LiteralString, self).__init__(*args, **kwargs)
         self.value = value    
     
     __mangled__ = {}
 
-class LiteralNumeric(Expression,Pickler):
+class LiteralNumeric(Expression):
     def __init__(self, value=None, *args, **kwargs):
         super(LiteralNumeric, self).__init__(*args, **kwargs)
         self.value = value    
     
     __mangled__ = {}
 
-class LiteralBoolean(Expression,Pickler):
+class LiteralBoolean(Expression):
     def __init__(self, value=None, *args, **kwargs):
         super(LiteralBoolean, self).__init__(*args, **kwargs)
         self.value = value    
     
     __mangled__ = {}
 
-class BinaryExpression(Expression,Pickler):
+class BinaryExpression(Expression):
     def __init__(self, operator=None, left=None, right=None, *args, **kwargs):
         super(BinaryExpression, self).__init__(*args, **kwargs)
         self.operator = operator
@@ -230,7 +230,7 @@ class BinaryExpression(Expression,Pickler):
     
     __mangled__ = {}
 
-class LogicalExpression(Expression,Pickler):
+class LogicalExpression(Expression):
     def __init__(self, operator=None, left=None, right=None, *args, **kwargs):
         super(LogicalExpression, self).__init__(*args, **kwargs)
         self.operator = operator
@@ -239,7 +239,7 @@ class LogicalExpression(Expression,Pickler):
     
     __mangled__ = {}
 
-class BooleanExpression(Expression,Pickler):
+class BooleanExpression(Expression):
     def __init__(self, operator=None, left=None, right=None, *args, **kwargs):
         super(BooleanExpression, self).__init__(*args, **kwargs)
         self.operator = operator
@@ -248,7 +248,15 @@ class BooleanExpression(Expression,Pickler):
     
     __mangled__ = {}
 
-class ExportKeyword(Node,Pickler):
+class UnaryExpression(Expression):
+    def __init__(self, operator=None, left=None, *args, **kwargs):
+        super(UnaryExpression, self).__init__(*args, **kwargs)
+        self.operator = operator
+        self.left = left    
+    
+    __mangled__ = {}
+
+class ExportKeyword(Node):
     def __init__(self, text=None, *args, **kwargs):
         super(ExportKeyword, self).__init__(*args, **kwargs)
         self.text = text    

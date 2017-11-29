@@ -64,7 +64,7 @@ def main(argv):
             text = arg
         elif opt in ("-f", "--file"):
             file_name = arg
-        elif opt in ("-f", "--form"):
+        elif opt in ("-p", "--print"):
             form = arg
         elif opt in ("-d", "--debug"):
             debug = True

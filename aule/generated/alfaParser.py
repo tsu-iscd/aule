@@ -83,26 +83,26 @@ def serializedATN():
         buf.write("\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa\25\3\2\2\2\u00ab")
         buf.write("\u00ac\7\'\2\2\u00ac\u00ad\5\32\16\2\u00ad\27\3\2\2\2")
         buf.write("\u00ae\u00af\b\r\1\2\u00af\u00b0\5$\23\2\u00b0\u00b1\5")
-        buf.write("\30\r\7\u00b1\u00b7\3\2\2\2\u00b2\u00b7\5,\27\2\u00b3")
+        buf.write("\30\r\n\u00b1\u00b7\3\2\2\2\u00b2\u00b7\5,\27\2\u00b3")
         buf.write("\u00b7\5.\30\2\u00b4\u00b7\5\60\31\2\u00b5\u00b7\5\62")
         buf.write("\32\2\u00b6\u00ae\3\2\2\2\u00b6\u00b2\3\2\2\2\u00b6\u00b3")
         buf.write("\3\2\2\2\u00b6\u00b4\3\2\2\2\u00b6\u00b5\3\2\2\2\u00b7")
-        buf.write("\u00c4\3\2\2\2\u00b8\u00b9\f\n\2\2\u00b9\u00ba\5&\24\2")
-        buf.write("\u00ba\u00bb\5\30\r\13\u00bb\u00c3\3\2\2\2\u00bc\u00bd")
-        buf.write("\f\t\2\2\u00bd\u00be\7.\2\2\u00be\u00c3\5\30\r\n\u00bf")
-        buf.write("\u00c0\f\b\2\2\u00c0\u00c1\7-\2\2\u00c1\u00c3\5\30\r\t")
+        buf.write("\u00c4\3\2\2\2\u00b8\u00b9\f\t\2\2\u00b9\u00ba\5&\24\2")
+        buf.write("\u00ba\u00bb\5\30\r\n\u00bb\u00c3\3\2\2\2\u00bc\u00bd")
+        buf.write("\f\b\2\2\u00bd\u00be\7.\2\2\u00be\u00c3\5\30\r\t\u00bf")
+        buf.write("\u00c0\f\7\2\2\u00c0\u00c1\7-\2\2\u00c1\u00c3\5\30\r\b")
         buf.write("\u00c2\u00b8\3\2\2\2\u00c2\u00bc\3\2\2\2\u00c2\u00bf\3")
         buf.write("\2\2\2\u00c3\u00c6\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c4\u00c5")
         buf.write("\3\2\2\2\u00c5\31\3\2\2\2\u00c6\u00c4\3\2\2\2\u00c7\u00c8")
-        buf.write("\b\16\1\2\u00c8\u00c9\5$\23\2\u00c9\u00ca\5\32\16\7\u00ca")
+        buf.write("\b\16\1\2\u00c8\u00c9\5$\23\2\u00c9\u00ca\5\32\16\n\u00ca")
         buf.write("\u00d0\3\2\2\2\u00cb\u00d0\5.\30\2\u00cc\u00d0\5\60\31")
         buf.write("\2\u00cd\u00d0\5\62\32\2\u00ce\u00d0\5(\25\2\u00cf\u00c7")
         buf.write("\3\2\2\2\u00cf\u00cb\3\2\2\2\u00cf\u00cc\3\2\2\2\u00cf")
         buf.write("\u00cd\3\2\2\2\u00cf\u00ce\3\2\2\2\u00d0\u00dd\3\2\2\2")
-        buf.write("\u00d1\u00d2\f\n\2\2\u00d2\u00d3\5&\24\2\u00d3\u00d4\5")
-        buf.write("\32\16\13\u00d4\u00dc\3\2\2\2\u00d5\u00d6\f\t\2\2\u00d6")
-        buf.write("\u00d7\7.\2\2\u00d7\u00dc\5\32\16\n\u00d8\u00d9\f\b\2")
-        buf.write("\2\u00d9\u00da\7-\2\2\u00da\u00dc\5\32\16\t\u00db\u00d1")
+        buf.write("\u00d1\u00d2\f\t\2\2\u00d2\u00d3\5&\24\2\u00d3\u00d4\5")
+        buf.write("\32\16\n\u00d4\u00dc\3\2\2\2\u00d5\u00d6\f\b\2\2\u00d6")
+        buf.write("\u00d7\7.\2\2\u00d7\u00dc\5\32\16\t\u00d8\u00d9\f\7\2")
+        buf.write("\2\u00d9\u00da\7-\2\2\u00da\u00dc\5\32\16\b\u00db\u00d1")
         buf.write("\3\2\2\2\u00db\u00d5\3\2\2\2\u00db\u00d8\3\2\2\2\u00dc")
         buf.write("\u00df\3\2\2\2\u00dd\u00db\3\2\2\2\u00dd\u00de\3\2\2\2")
         buf.write("\u00de\33\3\2\2\2\u00df\u00dd\3\2\2\2\u00e0\u00e1\7,\2")
@@ -1428,7 +1428,7 @@ class alfaParser ( Parser ):
                 self.state = 173
                 self.unaryOperator()
                 self.state = 174
-                self.targetExpression(5)
+                self.targetExpression(8)
                 pass
             elif token in [alfaParser.ANY]:
                 localctx = alfaParser.TargetAnyExpressionContext(self, localctx)
@@ -1477,39 +1477,39 @@ class alfaParser ( Parser ):
                         localctx = alfaParser.TargetBaseExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
                         self.state = 182
-                        if not self.precpred(self._ctx, 8):
+                        if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
                         self.state = 183
                         self.binaryOperator()
                         self.state = 184
-                        self.targetExpression(9)
+                        self.targetExpression(8)
                         pass
 
                     elif la_ == 2:
                         localctx = alfaParser.TargetAndExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
                         self.state = 186
-                        if not self.precpred(self._ctx, 7):
+                        if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                         self.state = 187
                         self.match(alfaParser.AND)
                         self.state = 188
-                        self.targetExpression(8)
+                        self.targetExpression(7)
                         pass
 
                     elif la_ == 3:
                         localctx = alfaParser.TargetOrExpressionContext(self, alfaParser.TargetExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_targetExpression)
                         self.state = 189
-                        if not self.precpred(self._ctx, 6):
+                        if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
                         self.state = 190
                         self.match(alfaParser.OR)
                         self.state = 191
-                        self.targetExpression(7)
+                        self.targetExpression(6)
                         pass
 
              
@@ -1780,7 +1780,7 @@ class alfaParser ( Parser ):
                 self.state = 198
                 self.unaryOperator()
                 self.state = 199
-                self.conditionExpression(5)
+                self.conditionExpression(8)
                 pass
 
             elif la_ == 2:
@@ -1832,39 +1832,39 @@ class alfaParser ( Parser ):
                         localctx = alfaParser.ConditionBaseExpressionContext(self, alfaParser.ConditionExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_conditionExpression)
                         self.state = 207
-                        if not self.precpred(self._ctx, 8):
+                        if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
                         self.state = 208
                         self.binaryOperator()
                         self.state = 209
-                        self.conditionExpression(9)
+                        self.conditionExpression(8)
                         pass
 
                     elif la_ == 2:
                         localctx = alfaParser.ConditionAndExpressionContext(self, alfaParser.ConditionExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_conditionExpression)
                         self.state = 211
-                        if not self.precpred(self._ctx, 7):
+                        if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                         self.state = 212
                         self.match(alfaParser.AND)
                         self.state = 213
-                        self.conditionExpression(8)
+                        self.conditionExpression(7)
                         pass
 
                     elif la_ == 3:
                         localctx = alfaParser.ConditionOrExpressionContext(self, alfaParser.ConditionExpressionContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_conditionExpression)
                         self.state = 214
-                        if not self.precpred(self._ctx, 6):
+                        if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
                         self.state = 215
                         self.match(alfaParser.OR)
                         self.state = 216
-                        self.conditionExpression(7)
+                        self.conditionExpression(6)
                         pass
 
              
@@ -2759,28 +2759,28 @@ class alfaParser ( Parser ):
 
     def targetExpression_sempred(self, localctx:TargetExpressionContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 8)
-         
-
-            if predIndex == 1:
                 return self.precpred(self._ctx, 7)
          
 
-            if predIndex == 2:
+            if predIndex == 1:
                 return self.precpred(self._ctx, 6)
+         
+
+            if predIndex == 2:
+                return self.precpred(self._ctx, 5)
          
 
     def conditionExpression_sempred(self, localctx:ConditionExpressionContext, predIndex:int):
             if predIndex == 3:
-                return self.precpred(self._ctx, 8)
-         
-
-            if predIndex == 4:
                 return self.precpred(self._ctx, 7)
          
 
-            if predIndex == 5:
+            if predIndex == 4:
                 return self.precpred(self._ctx, 6)
+         
+
+            if predIndex == 5:
+                return self.precpred(self._ctx, 5)
          
 
     def attributeAccessExpression_sempred(self, localctx:AttributeAccessExpressionContext, predIndex:int):

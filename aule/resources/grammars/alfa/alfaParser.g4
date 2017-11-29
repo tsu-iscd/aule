@@ -55,10 +55,10 @@ conditionStatement
     ;
 
 targetExpression
-    : targetExpression binaryOperator targetExpression        #targetBaseExpression
+    : unaryOperator targetExpression                          #targetUnaryExpression
+    | targetExpression binaryOperator targetExpression        #targetBaseExpression
     | targetExpression AND targetExpression                   #targetAndExpression
     | targetExpression OR  targetExpression                   #targetOrExpression
-    | unaryOperator targetExpression                          #targetUnaryExpression
     | anyExpression                                           #targetAnyExpression
     | attributeAccessExpression                               #targetAttributeAccessExpression
     | attributeValue                                          #targetAttributeValueExpression
@@ -66,10 +66,10 @@ targetExpression
     ;
 
 conditionExpression
-    : conditionExpression binaryOperator conditionExpression  #conditionBaseExpression
+    : unaryOperator conditionExpression                       #conditionUnaryExpression
+    | conditionExpression binaryOperator conditionExpression  #conditionBaseExpression
     | conditionExpression AND conditionExpression             #conditionAndExpression
     | conditionExpression OR  conditionExpression             #conditionOrExpression
-    | unaryOperator conditionExpression                       #conditionUnaryExpression
     | attributeAccessExpression                               #conditionAttributeAccessExpression
     | attributeValue                                          #conditionAttributeValueExpression
     | arrayExpression                                         #conditionArrayExpression

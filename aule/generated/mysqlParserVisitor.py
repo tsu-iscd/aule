@@ -399,8 +399,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#tableOptionEncription.
-    def visitTableOptionEncription(self, ctx:mysqlParser.TableOptionEncriptionContext):
+    # Visit a parse tree produced by mysqlParser#tableOptionEncryption.
+    def visitTableOptionEncryption(self, ctx:mysqlParser.TableOptionEncryptionContext):
         return self.visitChildren(ctx)
 
 
@@ -489,8 +489,8 @@ class mysqlParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by mysqlParser#partionFunctionRange.
-    def visitPartionFunctionRange(self, ctx:mysqlParser.PartionFunctionRangeContext):
+    # Visit a parse tree produced by mysqlParser#partitionFunctionRange.
+    def visitPartitionFunctionRange(self, ctx:mysqlParser.PartitionFunctionRangeContext):
         return self.visitChildren(ctx)
 
 
@@ -646,6 +646,11 @@ class mysqlParserVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by mysqlParser#alterByAddPrimaryKey.
     def visitAlterByAddPrimaryKey(self, ctx:mysqlParser.AlterByAddPrimaryKeyContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by mysqlParser#alterByAddUniqueKey.
+    def visitAlterByAddUniqueKey(self, ctx:mysqlParser.AlterByAddUniqueKeyContext):
         return self.visitChildren(ctx)
 
 

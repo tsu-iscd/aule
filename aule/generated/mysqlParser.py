@@ -9116,6 +9116,7 @@ class mysqlParser ( Parser ):
             self.thisTrigger = None # FullIdContext
             self.triggerTime = None # Token
             self.triggerEvent = None # Token
+            self.triggerPlace = None # Token
             self.otherTrigger = None # FullIdContext
 
         def CREATE(self):
@@ -9248,9 +9249,10 @@ class mysqlParser ( Parser ):
             la_ = self._interp.adaptivePredict(self._input,89,self._ctx)
             if la_ == 1:
                 self.state = 1132
+                localctx.triggerPlace = self._input.LT(1)
                 _la = self._input.LA(1)
                 if not(_la==mysqlParser.FOLLOWS or _la==mysqlParser.PRECEDES):
-                    self._errHandler.recoverInline(self)
+                    localctx.triggerPlace = self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
@@ -12480,32 +12482,6 @@ class mysqlParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class TableOptionEncriptionContext(TableOptionContext):
-
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.TableOptionContext
-            super().__init__(parser)
-            self.copyFrom(ctx)
-
-        def ENCRYPTION(self):
-            return self.getToken(mysqlParser.ENCRYPTION, 0)
-        def STRING_LITERAL(self):
-            return self.getToken(mysqlParser.STRING_LITERAL, 0)
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTableOptionEncription" ):
-                listener.enterTableOptionEncription(self)
-
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTableOptionEncription" ):
-                listener.exitTableOptionEncription(self)
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitTableOptionEncription" ):
-                return visitor.visitTableOptionEncription(self)
-            else:
-                return visitor.visitChildren(self)
-
-
     class TableOptionMaxRowsContext(TableOptionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.TableOptionContext
@@ -12811,6 +12787,32 @@ class mysqlParser ( Parser ):
         def accept(self, visitor:ParseTreeVisitor):
             if hasattr( visitor, "visitTableOptionKeyBlockSize" ):
                 return visitor.visitTableOptionKeyBlockSize(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+    class TableOptionEncryptionContext(TableOptionContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.TableOptionContext
+            super().__init__(parser)
+            self.copyFrom(ctx)
+
+        def ENCRYPTION(self):
+            return self.getToken(mysqlParser.ENCRYPTION, 0)
+        def STRING_LITERAL(self):
+            return self.getToken(mysqlParser.STRING_LITERAL, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterTableOptionEncryption" ):
+                listener.enterTableOptionEncryption(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitTableOptionEncryption" ):
+                listener.exitTableOptionEncryption(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTableOptionEncryption" ):
+                return visitor.visitTableOptionEncryption(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -13384,7 +13386,7 @@ class mysqlParser ( Parser ):
                 pass
 
             elif la_ == 12:
-                localctx = mysqlParser.TableOptionEncriptionContext(self, localctx)
+                localctx = mysqlParser.TableOptionEncryptionContext(self, localctx)
                 self.enterOuterAlt(localctx, 12)
                 self.state = 1579
                 self.match(mysqlParser.ENCRYPTION)
@@ -13991,7 +13993,7 @@ class mysqlParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
-    class PartionFunctionRangeContext(PartitionFunctionDefinitionContext):
+    class PartitionFunctionRangeContext(PartitionFunctionDefinitionContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.PartitionFunctionDefinitionContext
             super().__init__(parser)
@@ -14009,16 +14011,16 @@ class mysqlParser ( Parser ):
 
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPartionFunctionRange" ):
-                listener.enterPartionFunctionRange(self)
+            if hasattr( listener, "enterPartitionFunctionRange" ):
+                listener.enterPartitionFunctionRange(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPartionFunctionRange" ):
-                listener.exitPartionFunctionRange(self)
+            if hasattr( listener, "exitPartitionFunctionRange" ):
+                listener.exitPartitionFunctionRange(self)
 
         def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitPartionFunctionRange" ):
-                return visitor.visitPartionFunctionRange(self)
+            if hasattr( visitor, "visitPartitionFunctionRange" ):
+                return visitor.visitPartitionFunctionRange(self)
             else:
                 return visitor.visitChildren(self)
 
@@ -14094,7 +14096,7 @@ class mysqlParser ( Parser ):
                 pass
 
             elif la_ == 3:
-                localctx = mysqlParser.PartionFunctionRangeContext(self, localctx)
+                localctx = mysqlParser.PartitionFunctionRangeContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 1715
                 self.match(mysqlParser.RANGE)
@@ -16976,8 +16978,6 @@ class mysqlParser ( Parser ):
         def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.AlterSpecificationContext
             super().__init__(parser)
             self.keyType = None # Token
-            self.name = None # UidContext
-            self.indexName = None # UidContext
             self.copyFrom(ctx)
 
         def ADD(self):
@@ -16989,11 +16989,8 @@ class mysqlParser ( Parser ):
             return self.getToken(mysqlParser.INDEX, 0)
         def KEY(self):
             return self.getToken(mysqlParser.KEY, 0)
-        def uid(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(mysqlParser.UidContext)
-            else:
-                return self.getTypedRuleContext(mysqlParser.UidContext,i)
+        def uid(self):
+            return self.getTypedRuleContext(mysqlParser.UidContext,0)
 
         def indexType(self):
             return self.getTypedRuleContext(mysqlParser.IndexTypeContext,0)
@@ -17004,10 +17001,6 @@ class mysqlParser ( Parser ):
             else:
                 return self.getTypedRuleContext(mysqlParser.IndexOptionContext,i)
 
-        def UNIQUE(self):
-            return self.getToken(mysqlParser.UNIQUE, 0)
-        def CONSTRAINT(self):
-            return self.getToken(mysqlParser.CONSTRAINT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAlterByAddIndex" ):
@@ -17624,6 +17617,59 @@ class mysqlParser ( Parser ):
                 return visitor.visitChildren(self)
 
 
+    class AlterByAddUniqueKeyContext(AlterSpecificationContext):
+
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.AlterSpecificationContext
+            super().__init__(parser)
+            self.name = None # UidContext
+            self.keyType = None # Token
+            self.indexName = None # UidContext
+            self.copyFrom(ctx)
+
+        def ADD(self):
+            return self.getToken(mysqlParser.ADD, 0)
+        def UNIQUE(self):
+            return self.getToken(mysqlParser.UNIQUE, 0)
+        def indexColumnNames(self):
+            return self.getTypedRuleContext(mysqlParser.IndexColumnNamesContext,0)
+
+        def CONSTRAINT(self):
+            return self.getToken(mysqlParser.CONSTRAINT, 0)
+        def indexType(self):
+            return self.getTypedRuleContext(mysqlParser.IndexTypeContext,0)
+
+        def indexOption(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(mysqlParser.IndexOptionContext)
+            else:
+                return self.getTypedRuleContext(mysqlParser.IndexOptionContext,i)
+
+        def uid(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(mysqlParser.UidContext)
+            else:
+                return self.getTypedRuleContext(mysqlParser.UidContext,i)
+
+        def INDEX(self):
+            return self.getToken(mysqlParser.INDEX, 0)
+        def KEY(self):
+            return self.getToken(mysqlParser.KEY, 0)
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterAlterByAddUniqueKey" ):
+                listener.enterAlterByAddUniqueKey(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitAlterByAddUniqueKey" ):
+                listener.exitAlterByAddUniqueKey(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAlterByAddUniqueKey" ):
+                return visitor.visitAlterByAddUniqueKey(self)
+            else:
+                return visitor.visitChildren(self)
+
+
     class AlterByTruncatePartitionContext(AlterSpecificationContext):
 
         def __init__(self, parser, ctx:ParserRuleContext): # actually a mysqlParser.AlterSpecificationContext
@@ -17936,7 +17982,7 @@ class mysqlParser ( Parser ):
                 pass
 
             elif la_ == 6:
-                localctx = mysqlParser.AlterByAddIndexContext(self, localctx)
+                localctx = mysqlParser.AlterByAddUniqueKeyContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
                 self.state = 2147
                 self.match(mysqlParser.ADD)
@@ -42792,7 +42838,7 @@ class mysqlParser ( Parser ):
             self.nextOrder = list() # of Tokens
             self._DESC = None # Token
             self._REVERSE = None # Token
-            self._tset12517 = None # Token
+            self._tset12521 = None # Token
             self.copyFrom(ctx)
 
         def LEVEL(self):
@@ -42879,14 +42925,14 @@ class mysqlParser ( Parser ):
                     _la = self._input.LA(1)
                     if _la==mysqlParser.ASC or _la==mysqlParser.DESC or _la==mysqlParser.REVERSE:
                         self.state = 5556
-                        localctx._tset12517 = self._input.LT(1)
+                        localctx._tset12521 = self._input.LT(1)
                         _la = self._input.LA(1)
                         if not(_la==mysqlParser.ASC or _la==mysqlParser.DESC or _la==mysqlParser.REVERSE):
-                            localctx._tset12517 = self._errHandler.recoverInline(self)
+                            localctx._tset12521 = self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
-                        localctx.nextOrder.append(localctx._tset12517)
+                        localctx.nextOrder.append(localctx._tset12521)
 
 
                     self.state = 5563

@@ -70,6 +70,10 @@ class alfaASTVisitor(alfaParserVisitor):
         right = self.visit(ctx.targetExpression(1))
         return LogicalExpression("OR", left, right)
 
+    def visitTargetUnaryExpression(self, ctx):
+        left = self.visit(ctx.targetExpression())
+        return UnaryExpression("NOT", left)
+
     def visitTargetBaseExpression(self, ctx):
         left = self.visit(ctx.targetExpression(0))
         right = self.visit(ctx.targetExpression(1))
@@ -99,6 +103,10 @@ class alfaASTVisitor(alfaParserVisitor):
         left = self.visit(ctx.conditionExpression(0))
         right = self.visit(ctx.conditionExpression(1))
         return LogicalExpression("OR", left, right)
+
+    def visitConditionUnaryExpression(self, ctx):
+        left = self.visit(ctx.conditionExpression(0))
+        return UnaryExpression("NOT", left)
 
     def visitConditionBaseExpression(self, ctx):
         left = self.visit(ctx.conditionExpression(0))

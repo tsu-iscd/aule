@@ -132,6 +132,11 @@ interface BooleanExpression <: Expression {
     right: Expression;
 }
 
+interface UnaryExpression <: Expression {
+    operator: str;
+    left: Expression;
+}
+
 interface ExportKeyword <: Node {
     text: str;
 }
