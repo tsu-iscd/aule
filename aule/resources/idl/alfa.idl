@@ -126,12 +126,6 @@ interface LogicalExpression <: Expression {
     right: Expression;
 }
 
-interface BooleanExpression <: Expression {
-    operator: str;
-    left: Expression;
-    right: Expression;
-}
-
 interface ExportKeyword <: Node {
     text: str;
 }
