@@ -39,6 +39,13 @@
     {{- '\n}' }}
 {%- endmacro -%}
 
+
+{%- macro gen_enum(e) -%}
+    public enum {{ e|name }} {
+    {{ e | gen_enum_body }}
+    {{- '\n}' }}
+{%- endmacro -%}
+
 import java.util.List;
 
 public class AST{
@@ -47,6 +54,11 @@ public class AST{
 {% for cls in classes -%}
     {{ gen_class(cls) ~ '\n'}}
 {% endfor %}
+
+{% for e in enums -%}
+    {{- gen_enum(e) ~ '\n'}}
+{% endfor %}
+
 {% endfilter %}
 
 }

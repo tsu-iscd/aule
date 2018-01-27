@@ -26,11 +26,13 @@ class Generator(BaseGenerator):
             gen_modifiers=helpers.gen_modifiers,
             typed=helpers.typed,
             translate_type=helpers.translate_type,
-            gen_property=helpers.gen_property
+            gen_property=helpers.gen_property,
+            gen_enum_body=helpers.gen_enum_body
         )
 
     def use_tree(self, tree, mutableAST=False):
         super(Generator, self).use_tree(tree)
+        return self
 
     def generate_decoder(self):
         return self.env.get_template(self.DECODER_TEMPLATE_FILE).render(

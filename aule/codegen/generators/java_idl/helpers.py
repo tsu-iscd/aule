@@ -7,6 +7,8 @@ TYPES_MAP = {
     ust.SimpleType.STRING: "String",
     ust.SimpleType.BOOLEAN: "boolean",
     ust.SimpleType.VOID: "void",
+    ust.SimpleType.NULL: "Object",
+    ust.SimpleType.ANY: "Object"
 }
 
 
@@ -16,7 +18,7 @@ def translate_type(type_node):
     :rtype: str
     """
     if isinstance(type_node.type, ust.UnionType):
-        return "UnionTypeNotImplemented"
+        return "Object"
     if isinstance(type_node.type, ust.SimpleType):
         javatype = TYPES_MAP.get(type_node.type, type_node.type)
     else:
@@ -50,9 +52,9 @@ def gen_modifiers(modifiers):
     if ust.Modifier.ABSTRACT in modifiers:
         res.append('abstract ')
     if ust.Modifier.STATIC in modifiers:
-        res.append('static')
+        res.append('static ')
     if ust.Modifier.CONST in modifiers:
-        res.append('const')
+        res.append('const ')
     return ' '.join(res)
 
 
@@ -64,4 +66,5 @@ def gen_property(modifiers):
         else:
             return ""
 
-
+def gen_enum_body(enum):
+    return ", ".join(member.name.name for member in enum.members)
